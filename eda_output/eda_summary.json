@@ -1,0 +1,248 @@
+{
+    "shape": [
+        525461,
+        13
+    ],
+    "columns": [
+        "transaction_id",
+        "source_system",
+        "date",
+        "customer_id",
+        "product_id",
+        "quantity_sold",
+        "unit_price",
+        "sales_amount",
+        "store_id",
+        "category",
+        "discount",
+        "payment_method",
+        "region"
+    ],
+    "dtypes": {
+        "transaction_id": "object",
+        "source_system": "object",
+        "date": "datetime64[ns]",
+        "customer_id": "float64",
+        "product_id": "object",
+        "quantity_sold": "int64",
+        "unit_price": "float64",
+        "sales_amount": "float64",
+        "store_id": "float64",
+        "category": "float64",
+        "discount": "float64",
+        "payment_method": "float64",
+        "region": "object"
+    },
+    "missing_values": {
+        "transaction_id": 0,
+        "source_system": 0,
+        "date": 0,
+        "customer_id": 107927,
+        "product_id": 0,
+        "quantity_sold": 0,
+        "unit_price": 0,
+        "sales_amount": 0,
+        "store_id": 525461,
+        "category": 525461,
+        "discount": 525461,
+        "payment_method": 525461,
+        "region": 0
+    },
+    "duplicates": 6865,
+    "unique_customers": 4383,
+    "unique_products": 4632,
+    "date_range": {
+        "start": "2009-12-01 07:45:00",
+        "end": "2009-12-01 07:45:00"
+    },
+    "numerical_summary": {
+        "customer_id": {
+            "count": 417534.0,
+            "mean": 15360.645477973052,
+            "std": 1680.8113157457142,
+            "min": 12346.0,
+            "25%": 13983.0,
+            "50%": 15311.0,
+            "75%": 16799.0,
+            "max": 18287.0
+        },
+        "quantity_sold": {
+            "count": 525461.0,
+            "mean": 10.337667305470815,
+            "std": 107.42411026879778,
+            "min": -9600.0,
+            "25%": 1.0,
+            "50%": 3.0,
+            "75%": 10.0,
+            "max": 19152.0
+        },
+        "unit_price": {
+            "count": 525461.0,
+            "mean": 4.688834478676819,
+            "std": 146.1269139529265,
+            "min": -53594.36,
+            "25%": 1.25,
+            "50%": 2.1,
+            "75%": 4.21,
+            "max": 25111.09
+        },
+        "sales_amount": {
+            "count": 525461.0,
+            "mean": 18.15450553704271,
+            "std": 160.33308342883544,
+            "min": -53594.36,
+            "25%": 3.75,
+            "50%": 9.95,
+            "75%": 17.700000000000003,
+            "max": 25111.09
+        },
+        "store_id": {
+            "count": 0.0,
+            "mean": NaN,
+            "std": NaN,
+            "min": NaN,
+            "25%": NaN,
+            "50%": NaN,
+            "75%": NaN,
+            "max": NaN
+        },
+        "category": {
+            "count": 0.0,
+            "mean": NaN,
+            "std": NaN,
+            "min": NaN,
+            "25%": NaN,
+            "50%": NaN,
+            "75%": NaN,
+            "max": NaN
+        },
+        "discount": {
+            "count": 0.0,
+            "mean": NaN,
+            "std": NaN,
+            "min": NaN,
+            "25%": NaN,
+            "50%": NaN,
+            "75%": NaN,
+            "max": NaN
+        },
+        "payment_method": {
+            "count": 0.0,
+            "mean": NaN,
+            "std": NaN,
+            "min": NaN,
+            "25%": NaN,
+            "50%": NaN,
+            "75%": NaN,
+            "max": NaN
+        }
+    },
+    "categorical_summary": {
+        "transaction_id": {
+            "count": 525461,
+            "unique": 28816,
+            "top": "537434",
+            "freq": 675
+        },
+        "source_system": {
+            "count": 525461,
+            "unique": 1,
+            "top": "online_retail",
+            "freq": 525461
+        },
+        "product_id": {
+            "count": 525461,
+            "unique": 4632,
+            "top": "85123A",
+            "freq": 3516
+        },
+        "region": {
+            "count": 525461,
+            "unique": 40,
+            "top": "United Kingdom",
+            "freq": 485852
+        }
+    },
+    "correlation": {
+        "customer_id": {
+            "customer_id": 1.0,
+            "quantity_sold": -0.011576575926139237,
+            "unit_price": -0.003265888474877009,
+            "sales_amount": -0.009474549703399927,
+            "store_id": NaN,
+            "category": NaN,
+            "discount": NaN,
+            "payment_method": NaN
+        },
+        "quantity_sold": {
+            "customer_id": -0.011576575926139237,
+            "quantity_sold": 1.0,
+            "unit_price": -0.0019313304222704135,
+            "sales_amount": 0.15628309551051311,
+            "store_id": NaN,
+            "category": NaN,
+            "discount": NaN,
+            "payment_method": NaN
+        },
+        "unit_price": {
+            "customer_id": -0.003265888474877009,
+            "quantity_sold": -0.0019313304222704135,
+            "unit_price": 1.0,
+            "sales_amount": 0.4525920644463256,
+            "store_id": NaN,
+            "category": NaN,
+            "discount": NaN,
+            "payment_method": NaN
+        },
+        "sales_amount": {
+            "customer_id": -0.009474549703399927,
+            "quantity_sold": 0.15628309551051311,
+            "unit_price": 0.4525920644463256,
+            "sales_amount": 1.0,
+            "store_id": NaN,
+            "category": NaN,
+            "discount": NaN,
+            "payment_method": NaN
+        },
+        "store_id": {
+            "customer_id": NaN,
+            "quantity_sold": NaN,
+            "unit_price": NaN,
+            "sales_amount": NaN,
+            "store_id": NaN,
+            "category": NaN,
+            "discount": NaN,
+            "payment_method": NaN
+        },
+        "category": {
+            "customer_id": NaN,
+            "quantity_sold": NaN,
+            "unit_price": NaN,
+            "sales_amount": NaN,
+            "store_id": NaN,
+            "category": NaN,
+            "discount": NaN,
+            "payment_method": NaN
+        },
+        "discount": {
+            "customer_id": NaN,
+            "quantity_sold": NaN,
+            "unit_price": NaN,
+            "sales_amount": NaN,
+            "store_id": NaN,
+            "category": NaN,
+            "discount": NaN,
+            "payment_method": NaN
+        },
+        "payment_method": {
+            "customer_id": NaN,
+            "quantity_sold": NaN,
+            "unit_price": NaN,
+            "sales_amount": NaN,
+            "store_id": NaN,
+            "category": NaN,
+            "discount": NaN,
+            "payment_method": NaN
+        }
+    }
+}
