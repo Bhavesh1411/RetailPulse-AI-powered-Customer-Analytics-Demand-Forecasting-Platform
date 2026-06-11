@@ -12,7 +12,7 @@ def main():
     # 1. Load Cleaned Dataset
     print(f"Loading cleaned dataset from: {input_file}")
     df = pd.read_csv(input_file)
-    df['date'] = pd.to_datetime(df['date'])
+    df['date'] = pd.to_datetime(df['date'], dayfirst=True, format='mixed')
     
     initial_features = list(df.columns)
     print(f"Initial features: {initial_features}")
@@ -78,7 +78,6 @@ def main():
         customer_features['monetary'] / customer_features['total_orders'],
         0.0
     )
-    customer_features['average_order_value'] = customer_features['average_purchase_value']
     
     # Quantity per order
     customer_features['quantity_per_order'] = np.where(
@@ -105,13 +104,10 @@ def main():
     # ADVANCED CUSTOMER INTELLIGENCE FEATURES
     # ----------------------------------------------------
     print("Generating Advanced Customer Intelligence Features...")
-    customer_features['customer_lifetime_value'] = customer_features['monetary']
-    customer_features['customer_total_revenue'] = customer_features['monetary']
     
     # Rank by revenue descending
     customer_features['customer_rank_by_revenue'] = customer_features['monetary'].rank(ascending=False, method='min').astype(int)
     
-    customer_features['inactivity_days'] = customer_features['recency']
     customer_features['customer_tenure'] = (reference_date - customer_features['first_purchase_date']).dt.days
     
     customer_features['avg_days_between_purchases'] = np.where(
@@ -127,9 +123,16 @@ def main():
     
     customer_features['customer_risk_score'] = np.minimum(
         1.0,
-        customer_features['inactivity_days'] / (2 * customer_features['avg_days_between_purchases'] + 30.0)
+        customer_features['recency'] / (2 * customer_features['avg_days_between_purchases'] + 30.0)
     )
     customer_features['churn_warning_flag'] = (customer_features['customer_risk_score'] > 0.7).astype(int)
+    
+    # Lost 1-Time Buyer Flag: Frequency = 1 and Recency > 90 days
+    customer_features['lost_one_time_buyer_flag'] = np.where(
+        (customer_features['frequency'] == 1) & (customer_features['recency'] > 90),
+        1,
+        0
+    )
     
     m_threshold = customer_features['monetary'].quantile(0.9)
     customer_features['high_value_customer_flag'] = (customer_features['monetary'] >= m_threshold).astype(int)
@@ -160,12 +163,12 @@ def main():
     # Reorder columns
     cust_cols = [
         'customer_id', 'recency', 'frequency', 'monetary', 
-        'total_orders', 'average_purchase_value', 'average_order_value',
+        'average_purchase_value',
         'quantity_per_order', 'active_months', 'purchase_frequency',
-        'customer_lifetime_value', 'customer_loyalty_score', 'customer_risk_score',
+        'customer_loyalty_score', 'customer_risk_score',
         'high_value_customer_flag', 'customer_tenure', 'avg_days_between_purchases',
-        'weekend_sales_ratio', 'customer_total_revenue', 'customer_rank_by_revenue',
-        'inactivity_days', 'churn_warning_flag'
+        'weekend_sales_ratio', 'customer_rank_by_revenue',
+        'churn_warning_flag', 'lost_one_time_buyer_flag'
     ]
     customer_features = customer_features[cust_cols]
     
@@ -315,15 +318,26 @@ def main():
     daily_df = daily_df.merge(monthly_means[['month', 'monthly_seasonality_index']], on='month', how='left')
     daily_df.drop(columns=['month'], inplace=True)
     
-    # Composite seasonality index
-    daily_df['seasonality_index'] = daily_df['weekday_seasonality_index'] * daily_df['monthly_seasonality_index']
-    
-    # MoM Sales Growth Rate
-    daily_df['year_month'] = daily_df['date'].dt.to_period('M')
-    monthly_sales = daily_df.groupby('year_month')['sales_amount'].sum().reset_index(name='monthly_total_sales')
-    monthly_sales['sales_growth_rate'] = monthly_sales['monthly_total_sales'].pct_change().fillna(0.0)
-    daily_df = daily_df.merge(monthly_sales[['year_month', 'sales_growth_rate']], on='year_month', how='left')
-    daily_df.drop(columns=['year_month'], inplace=True)
+    # Composite seasonality index (removed – redundant with weekday and monthly indices)
+
+    # 30-day sales volatility
+    daily_df['sales_volatility_30_day'] = daily_df['sales_amount'].rolling(window=30, min_periods=1).std().fillna(0.0)
+
+    # Demand Momentum (7-day sales / 30-day sales)
+    daily_df['demand_momentum'] = np.where(
+        daily_df['rolling_30_day_sales'] > 0,
+        daily_df['rolling_7_day_sales'] / daily_df['rolling_30_day_sales'],
+        1.0
+    )
+
+    # Quantity Momentum (7-day qty / 30-day qty)
+    daily_df['quantity_momentum'] = np.where(
+        daily_df['rolling_30_day_quantity'] > 0,
+        daily_df['rolling_7_day_quantity'] / daily_df['rolling_30_day_quantity'],
+        1.0
+    )
+
+    # MoM Sales Growth Rate (removed to avoid leakage – uses future data)
     
     # Save daily time series forecasting dataset
     daily_file = os.path.join(output_dir, 'daily_sales_forecast_features.csv')
@@ -336,12 +350,12 @@ def main():
     print("Performing Feature Validation...")
     
     cust_val_cols = [
-        'recency', 'frequency', 'monetary', 'total_orders', 'average_purchase_value', 
-        'average_order_value', 'quantity_per_order', 'active_months', 'purchase_frequency',
-        'customer_lifetime_value', 'customer_loyalty_score', 'customer_risk_score',
+        'recency', 'frequency', 'monetary', 'average_purchase_value', 
+        'quantity_per_order', 'active_months', 'purchase_frequency',
+        'customer_loyalty_score', 'customer_risk_score',
         'high_value_customer_flag', 'customer_tenure', 'avg_days_between_purchases',
-        'weekend_sales_ratio', 'customer_total_revenue', 'customer_rank_by_revenue',
-        'inactivity_days', 'churn_warning_flag'
+        'weekend_sales_ratio', 'customer_rank_by_revenue',
+        'churn_warning_flag', 'lost_one_time_buyer_flag'
     ]
     
     prod_val_cols = [
@@ -353,10 +367,11 @@ def main():
     ]
     
     daily_val_cols = [
-        'sales_amount', 'quantity_sold', 'rolling_7_day_sales', 'rolling_30_day_sales', 
-        'rolling_7_day_quantity', 'rolling_30_day_quantity', 'lag_1_sales', 'lag_7_sales', 
+        'sales_amount', 'quantity_sold', 'rolling_7_day_sales', 'rolling_30_day_sales',
+        'rolling_7_day_quantity', 'rolling_30_day_quantity', 'lag_1_sales', 'lag_7_sales',
         'lag_30_sales', 'lag_1_qty', 'lag_7_qty', 'lag_30_qty', 'weekday_seasonality_index',
-        'monthly_seasonality_index', 'seasonality_index', 'sales_growth_rate'
+        'monthly_seasonality_index', 'sales_volatility_30_day', 'demand_momentum',
+        'quantity_momentum'
     ]
     
     datasets_to_validate = {
