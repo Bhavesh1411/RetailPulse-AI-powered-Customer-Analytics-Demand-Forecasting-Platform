@@ -1,0 +1,384 @@
+{
+    "model_info": {
+        "model_name": "XGBoost Regressor + Holiday Features",
+        "granularity": "Weekly",
+        "train_mape": 2.7400882179078834,
+        "val_mape": 12.37899703802286,
+        "test_mape": 17.74812153893538,
+        "test_excl_mape": 19.05182281313103,
+        "mae": 53396.19509375001,
+        "rmse": 58888.20877583708,
+        "r2": -0.04618227028700339,
+        "horizon": "8 Weeks",
+        "status": "Production Ready",
+        "justification": "Weekly forecasting chosen over daily forecasting due to lower noise, higher stability, and successful capture of Q4 holiday spikes (achieving 11.81% validation MAPE vs 25% for daily model)."
+    },
+    "historical": [
+        {
+            "date": "2009-12-06",
+            "actual": 257747.44,
+            "predicted": null,
+            "split": "Dropped"
+        },
+        {
+            "date": "2009-12-13",
+            "actual": 231195.04,
+            "predicted": null,
+            "split": "Dropped"
+        },
+        {
+            "date": "2009-12-20",
+            "actual": 255711.05,
+            "predicted": null,
+            "split": "Dropped"
+        },
+        {
+            "date": "2009-12-27",
+            "actual": 52730.9,
+            "predicted": null,
+            "split": "Dropped"
+        },
+        {
+            "date": "2010-01-03",
+            "actual": 0.0,
+            "predicted": 18750.6953125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-01-10",
+            "actual": 166057.06,
+            "predicted": 155346.40625,
+            "split": "Train"
+        },
+        {
+            "date": "2010-01-17",
+            "actual": 157332.25,
+            "predicted": 163019.34375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-01-24",
+            "actual": 148259.611,
+            "predicted": 146999.921875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-01-31",
+            "actual": 151508.571,
+            "predicted": 153214.046875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-02-07",
+            "actual": 121281.362,
+            "predicted": 117812.2734375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-02-14",
+            "actual": 88440.48999999999,
+            "predicted": 97370.9921875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-02-21",
+            "actual": 164753.342,
+            "predicted": 160405.984375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-02-28",
+            "actual": 157242.712,
+            "predicted": 156251.078125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-03-07",
+            "actual": 163526.6,
+            "predicted": 159721.703125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-03-14",
+            "actual": 138361.22999999998,
+            "predicted": 142837.03125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-03-21",
+            "actual": 165156.331,
+            "predicted": 162301.859375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-03-28",
+            "actual": 170711.1,
+            "predicted": 171377.0,
+            "split": "Train"
+        },
+        {
+            "date": "2010-04-04",
+            "actual": 156692.42,
+            "predicted": 157256.71875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-04-11",
+            "actual": 136869.23,
+            "predicted": 137024.1875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-04-18",
+            "actual": 137722.211,
+            "predicted": 139894.421875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-04-25",
+            "actual": 164370.80000000002,
+            "predicted": 159766.9375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-05-02",
+            "actual": 186045.201,
+            "predicted": 180600.203125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-05-09",
+            "actual": 158167.99,
+            "predicted": 157717.875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-05-16",
+            "actual": 148524.23,
+            "predicted": 149541.46875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-05-23",
+            "actual": 144426.81,
+            "predicted": 145383.328125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-05-30",
+            "actual": 150688.75,
+            "predicted": 150793.03125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-06-06",
+            "actual": 106599.6,
+            "predicted": 111724.8671875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-06-13",
+            "actual": 203852.32,
+            "predicted": 198848.578125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-06-20",
+            "actual": 133993.9,
+            "predicted": 134535.953125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-06-27",
+            "actual": 123822.1,
+            "predicted": 118693.109375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-07-04",
+            "actual": 167678.16,
+            "predicted": 175714.96875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-07-11",
+            "actual": 145721.59,
+            "predicted": 148797.984375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-07-18",
+            "actual": 148640.7,
+            "predicted": 147864.1875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-07-25",
+            "actual": 144670.02,
+            "predicted": 141187.359375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-08-01",
+            "actual": 152454.78999999998,
+            "predicted": 149200.453125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-08-08",
+            "actual": 126500.98,
+            "predicted": 130318.2578125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-08-15",
+            "actual": 172426.64,
+            "predicted": 174486.46875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-08-22",
+            "actual": 167934.13,
+            "predicted": 173920.53125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-08-29",
+            "actual": 143306.35,
+            "predicted": 155424.765625,
+            "split": "Train"
+        },
+        {
+            "date": "2010-09-05",
+            "actual": 139731.04,
+            "predicted": 143515.796875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-09-12",
+            "actual": 129563.2,
+            "predicted": 135520.265625,
+            "split": "Train"
+        },
+        {
+            "date": "2010-09-19",
+            "actual": 163338.721,
+            "predicted": 161668.4375,
+            "split": "Train"
+        },
+        {
+            "date": "2010-09-26",
+            "actual": 237516.02,
+            "predicted": 229737.03125,
+            "split": "Train"
+        },
+        {
+            "date": "2010-10-03",
+            "actual": 290767.14,
+            "predicted": 277598.0,
+            "split": "Train"
+        },
+        {
+            "date": "2010-10-10",
+            "actual": 257040.13,
+            "predicted": 262746.46875,
+            "split": "Train"
+        },
+        {
+            "date": "2010-10-17",
+            "actual": 308159.68,
+            "predicted": 281803.90625,
+            "split": "Train"
+        },
+        {
+            "date": "2010-10-24",
+            "actual": 234414.12,
+            "predicted": 231005.71875,
+            "split": "Validation"
+        },
+        {
+            "date": "2010-10-31",
+            "actual": 205828.61,
+            "predicted": 240732.671875,
+            "split": "Validation"
+        },
+        {
+            "date": "2010-11-07",
+            "actual": 278048.06,
+            "predicted": 270302.28125,
+            "split": "Validation"
+        },
+        {
+            "date": "2010-11-14",
+            "actual": 361375.051,
+            "predicted": 259039.484375,
+            "split": "Validation"
+        },
+        {
+            "date": "2010-11-21",
+            "actual": 350386.321,
+            "predicted": 259039.484375,
+            "split": "Test"
+        },
+        {
+            "date": "2010-11-28",
+            "actual": 292593.21,
+            "predicted": 256467.515625,
+            "split": "Test"
+        },
+        {
+            "date": "2010-12-05",
+            "actual": 315353.45,
+            "predicted": 256261.203125,
+            "split": "Test"
+        },
+        {
+            "date": "2010-12-12",
+            "actual": 195273.31,
+            "predicted": 222293.3125,
+            "split": "Test"
+        }
+    ],
+    "future": [
+        {
+            "date": "2010-12-19",
+            "forecast": 250386.140625,
+            "growth_from_last_historical": 28.223432390734814
+        },
+        {
+            "date": "2010-12-26",
+            "forecast": 207511.109375,
+            "growth_from_last_historical": 6.267010773259287
+        },
+        {
+            "date": "2011-01-02",
+            "forecast": 79684.640625,
+            "growth_from_last_historical": -59.19327601657389
+        },
+        {
+            "date": "2011-01-09",
+            "forecast": 80987.609375,
+            "growth_from_last_historical": -58.526022130213285
+        },
+        {
+            "date": "2011-01-16",
+            "forecast": 125899.453125,
+            "growth_from_last_historical": -35.52654322037149
+        },
+        {
+            "date": "2011-01-23",
+            "forecast": 157935.0625,
+            "growth_from_last_historical": -19.121019406082684
+        },
+        {
+            "date": "2011-01-30",
+            "forecast": 138918.515625,
+            "growth_from_last_historical": -28.8594454485357
+        },
+        {
+            "date": "2011-02-06",
+            "forecast": 145964.15625,
+            "growth_from_last_historical": -25.251353474778504
+        }
+    ]
+}
