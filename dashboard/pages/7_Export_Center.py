@@ -388,45 +388,42 @@ with col_i4:
 # -----------------
 st.markdown("<div class='section-header'>Section 5: Executive Summary Report</div>", unsafe_allow_html=True)
 
-# Helper function to compile executive summary report dynamically
-def compile_executive_report():
-    report_lines = []
-    report_lines.append("================================================================================")
-    report_lines.append("                     RETAILPULSE EXECUTIVE SUMMARY REPORT")
-    report_lines.append(f"Generated On: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    report_lines.append("================================================================================")
-    report_lines.append("")
-    
-    # 1. Platform Status Summary
-    report_lines.append("1. PLATFORM MODULE STATUS")
-    report_lines.append("-------------------------")
+# Helper function to compile executive summary data dynamically
+def get_executive_summary_data():
+    data = {
+        'platform_status': {},
+        'forecasting': None,
+        'segmentation': None,
+        'churn': None,
+        'inventory': None,
+        'alerts': None
+    }
     
     seg_exists = os.path.exists(seg_path)
     churn_exists = os.path.exists(churn_path)
     forecast_exists = os.path.exists(forecast_path)
     inv_exists = os.path.exists(inventory_kpi_path)
     
-    report_lines.append(f"- Customer Segmentation:  {'ACTIVE' if seg_exists else 'INACTIVE'}")
-    report_lines.append(f"- Churn Prediction:       {'ACTIVE' if churn_exists else 'INACTIVE'}")
-    report_lines.append(f"- Demand Forecasting:     {'ACTIVE' if forecast_exists else 'INACTIVE'}")
-    report_lines.append(f"- Inventory Optimization: {'ACTIVE' if inv_exists else 'INACTIVE'}")
-    report_lines.append("")
+    data['platform_status'] = {
+        'Customer Segmentation': 'ACTIVE' if seg_exists else 'INACTIVE',
+        'Churn Prediction': 'ACTIVE' if churn_exists else 'INACTIVE',
+        'Demand Forecasting': 'ACTIVE' if forecast_exists else 'INACTIVE',
+        'Inventory Optimization': 'ACTIVE' if inv_exists else 'INACTIVE'
+    }
     
-    # 2. Demand Forecasting KPIs
-    report_lines.append("2. DEMAND FORECASTING OVERVIEW")
-    report_lines.append("------------------------------")
     if forecast_exists:
         try:
             with open(forecast_path, 'r') as f:
                 f_data = json.load(f)
             mi = f_data.get("model_info", {})
-            report_lines.append(f"- Forecast Model:          {mi.get('model_name', 'XGBoost Regressor')}")
-            report_lines.append(f"- Granularity:             {mi.get('granularity', 'Weekly')}")
-            report_lines.append(f"- Validation MAPE:         {mi.get('val_mape', 0.0):.2f}%")
-            report_lines.append(f"- Test MAPE:               {mi.get('test_mape', 0.0):.2f}%")
-            report_lines.append(f"- Forecast Horizon:        {mi.get('horizon', '8 Weeks')}")
-            report_lines.append(f"- Model Status:            {mi.get('status', 'Unknown')}")
-            
+            f_dict = {
+                'model_name': mi.get('model_name', 'XGBoost Regressor'),
+                'granularity': mi.get('granularity', 'Weekly'),
+                'val_mape': mi.get('val_mape', 0.0),
+                'test_mape': mi.get('test_mape', 0.0),
+                'horizon': mi.get('horizon', '8 Weeks'),
+                'status': mi.get('status', 'Unknown')
+            }
             future_list = f_data.get('future', [])
             if future_list:
                 f_df = pd.DataFrame(future_list)
@@ -434,18 +431,14 @@ def compile_executive_report():
                 y_val = f_df['forecast'].values
                 slope, _ = np.polyfit(x_idx, y_val, 1)
                 trend = "Growth" if slope > 1000 else ("Decline" if slope < -1000 else "Stable")
-                report_lines.append(f"- 8-Week Revenue Trend:    {trend} (Slope: {slope:+.2f}/week)")
-                report_lines.append(f"- Next Week Forecast:      ${f_df['forecast'].iloc[0]:,.2f}")
-                report_lines.append(f"- Horizon Peak Forecast:   ${f_df['forecast'].max():,.2f}")
-        except Exception as e:
-            report_lines.append(f"Error loading forecasting data: {e}")
-    else:
-        report_lines.append("Demand forecasting data not available.")
-    report_lines.append("")
-    
-    # 3. Customer Segmentation KPIs
-    report_lines.append("3. CUSTOMER SEGMENTATION & REVENUE")
-    report_lines.append("----------------------------------")
+                f_dict['trend'] = trend
+                f_dict['slope'] = slope
+                f_dict['next_week'] = f_df['forecast'].iloc[0]
+                f_dict['peak'] = f_df['forecast'].max()
+            data['forecasting'] = f_dict
+        except Exception:
+            pass
+            
     if seg_exists:
         try:
             seg_df = pd.read_csv(seg_path)
@@ -455,20 +448,17 @@ def compile_executive_report():
             num_seg = seg_df['cluster'].nunique() if 'cluster' in seg_df.columns else 0
             high_val_count = len(seg_df[seg_df['high_value_customer_flag'] == 1]) if 'high_value_customer_flag' in seg_df.columns else 0
             
-            report_lines.append(f"- Total Tracked Customers: {total_customers:,}")
-            report_lines.append(f"- Total Platform Revenue:  ${total_rev:,.2f}")
-            report_lines.append(f"- Average Customer Value:  ${avg_val:,.2f}")
-            report_lines.append(f"- Active Customer Clusters: {num_seg}")
-            report_lines.append(f"- High-Value Customers:    {high_val_count:,} ({high_val_count/total_customers * 100:.1f}% of total base)")
-        except Exception as e:
-            report_lines.append(f"Error loading segmentation data: {e}")
-    else:
-        report_lines.append("Customer segmentation data not available.")
-    report_lines.append("")
-    
-    # 4. True Churn Predictions
-    report_lines.append("4. CUSTOMER CHURN RISK ANALYSIS")
-    report_lines.append("-------------------------------")
+            data['segmentation'] = {
+                'total_customers': total_customers,
+                'total_rev': total_rev,
+                'avg_val': avg_val,
+                'num_seg': num_seg,
+                'high_val_count': high_val_count,
+                'high_val_pct': (high_val_count/total_customers * 100) if total_customers > 0 else 0
+            }
+        except Exception:
+            pass
+            
     if churn_exists:
         try:
             churn_df = pd.read_csv(churn_path)
@@ -478,19 +468,17 @@ def compile_executive_report():
             high_risk_pct = (high_risk_count / total_churn_customers) * 100 if total_churn_customers > 0 else 0.0
             rev_at_risk = high_risk_df['monetary'].sum() if 'monetary' in high_risk_df.columns else 0.0
             
-            report_lines.append(f"- Evaluated Accounts:      {total_churn_customers:,}")
-            report_lines.append(f"- High-Risk Customers:     {high_risk_count:,} ({high_risk_pct:.1f}% of total)")
-            report_lines.append(f"- Total Revenue at Risk:   ${rev_at_risk:,.2f}")
-            report_lines.append(f"- Churn Platform Status:   {'CRITICAL RISK' if high_risk_pct >= 20.0 else ('ATTENTION REQUIRED' if high_risk_pct >= 10.0 else 'HEALTHY')}")
-        except Exception as e:
-            report_lines.append(f"Error loading churn data: {e}")
-    else:
-        report_lines.append("Churn prediction data not available.")
-    report_lines.append("")
-    
-    # 5. Inventory Optimization
-    report_lines.append("5. INVENTORY & SUPPLY CHAIN OPTIMIZATION")
-    report_lines.append("----------------------------------------")
+            status_text = 'CRITICAL RISK' if high_risk_pct >= 20.0 else ('ATTENTION REQUIRED' if high_risk_pct >= 10.0 else 'HEALTHY')
+            data['churn'] = {
+                'total_customers': total_churn_customers,
+                'high_risk_count': high_risk_count,
+                'high_risk_pct': high_risk_pct,
+                'rev_at_risk': rev_at_risk,
+                'status': status_text
+            }
+        except Exception:
+            pass
+            
     if inv_exists:
         try:
             inv_df = pd.read_csv(inventory_kpi_path)
@@ -507,21 +495,18 @@ def compile_executive_report():
                 reorder_df = pd.read_csv(reorder_path)
                 reorder_count = len(reorder_df)
                 
-            report_lines.append(f"- Inventory Health Score:  {health_score:.2f} / 100")
-            report_lines.append(f"- Total Products Tracked:  {tot_prod:,}")
-            report_lines.append(f"- Critical Risk Products:  {crit_risk:,} ({crit_risk/tot_prod * 100:.1f}% of catalog)")
-            report_lines.append(f"- Reorder Recommendations: {reorder_count:,}")
-            report_lines.append(f"- Simulated Stock Value:   ${sim_val:,.2f}")
-            report_lines.append(f"- Excess Inventory Value:  ${ex_val:,.2f}")
-        except Exception as e:
-            report_lines.append(f"Error loading inventory data: {e}")
-    else:
-        report_lines.append("Inventory optimization data not available.")
-    report_lines.append("")
-    
-    # 6. Priority Alerts Count
-    report_lines.append("6. SYSTEM ALERTS SUMMARY")
-    report_lines.append("------------------------")
+            data['inventory'] = {
+                'health_score': health_score,
+                'tot_prod': tot_prod,
+                'crit_risk': crit_risk,
+                'crit_risk_pct': (crit_risk/tot_prod * 100) if tot_prod > 0 else 0,
+                'reorder_count': reorder_count,
+                'sim_val': sim_val,
+                'ex_val': ex_val
+            }
+        except Exception:
+            pass
+            
     try:
         c_df = pd.read_csv(churn_path) if churn_exists else pd.DataFrame()
         r_df = pd.read_csv(reorder_path) if os.path.exists(reorder_path) else pd.DataFrame()
@@ -556,13 +541,106 @@ def compile_executive_report():
         warn_alerts = (1 if 0 < t_high_risk <= 100 else 0) + (1 if 0 < c_prod <= 50 else 0) + (1 if imm_reorder > 0 else 0)
         tot_alerts = crit_alerts + warn_alerts + opp_alerts
         
-        report_lines.append(f"- Active Alerts Count:     {tot_alerts}")
-        report_lines.append(f"  • Critical Alerts:       {crit_alerts}")
-        report_lines.append(f"  • Warning Alerts:        {warn_alerts}")
-        report_lines.append(f"  • Opportunity Alerts:    {opp_alerts}")
-        report_lines.append(f"  • Immediate Reorders Req: {imm_reorder}")
-    except Exception as e:
-        report_lines.append(f"Error calculating alerts: {e}")
+        data['alerts'] = {
+            'tot_alerts': tot_alerts,
+            'crit_alerts': crit_alerts,
+            'warn_alerts': warn_alerts,
+            'opp_alerts': opp_alerts,
+            'imm_reorder': imm_reorder
+        }
+    except Exception:
+        pass
+        
+    return data
+
+def generate_txt_report(data):
+    report_lines = []
+    report_lines.append("================================================================================")
+    report_lines.append("                     RETAILPULSE EXECUTIVE SUMMARY REPORT")
+    report_lines.append(f"Generated On: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    report_lines.append("================================================================================")
+    report_lines.append("")
+    
+    # 1. Platform Status Summary
+    report_lines.append("1. PLATFORM MODULE STATUS")
+    report_lines.append("-------------------------")
+    for k, v in data['platform_status'].items():
+        report_lines.append(f"- {k}: {v}")
+    report_lines.append("")
+    
+    # 2. Demand Forecasting KPIs
+    report_lines.append("2. DEMAND FORECASTING OVERVIEW")
+    report_lines.append("------------------------------")
+    if data['forecasting']:
+        f = data['forecasting']
+        report_lines.append(f"- Forecast Model:          {f.get('model_name')}")
+        report_lines.append(f"- Granularity:             {f.get('granularity')}")
+        report_lines.append(f"- Validation MAPE:         {f.get('val_mape'):.2f}%")
+        report_lines.append(f"- Test MAPE:               {f.get('test_mape'):.2f}%")
+        report_lines.append(f"- Forecast Horizon:        {f.get('horizon')}")
+        report_lines.append(f"- Model Status:            {f.get('status')}")
+        if 'trend' in f:
+            report_lines.append(f"- 8-Week Revenue Trend:    {f.get('trend')} (Slope: {f.get('slope'):+.2f}/week)")
+            report_lines.append(f"- Next Week Forecast:      ${f.get('next_week'):,.2f}")
+            report_lines.append(f"- Horizon Peak Forecast:   ${f.get('peak'):,.2f}")
+    else:
+        report_lines.append("Demand forecasting data not available.")
+    report_lines.append("")
+    
+    # 3. Customer Segmentation KPIs
+    report_lines.append("3. CUSTOMER SEGMENTATION & REVENUE")
+    report_lines.append("----------------------------------")
+    if data['segmentation']:
+        s = data['segmentation']
+        report_lines.append(f"- Total Tracked Customers: {s['total_customers']:,}")
+        report_lines.append(f"- Total Platform Revenue:  ${s['total_rev']:,.2f}")
+        report_lines.append(f"- Average Customer Value:  ${s['avg_val']:,.2f}")
+        report_lines.append(f"- Active Customer Clusters: {s['num_seg']}")
+        report_lines.append(f"- High-Value Customers:    {s['high_val_count']:,} ({s['high_val_pct']:.1f}% of total base)")
+    else:
+        report_lines.append("Customer segmentation data not available.")
+    report_lines.append("")
+    
+    # 4. True Churn Predictions
+    report_lines.append("4. CUSTOMER CHURN RISK ANALYSIS")
+    report_lines.append("-------------------------------")
+    if data['churn']:
+        c = data['churn']
+        report_lines.append(f"- Evaluated Accounts:      {c['total_customers']:,}")
+        report_lines.append(f"- High-Risk Customers:     {c['high_risk_count']:,} ({c['high_risk_pct']:.1f}% of total)")
+        report_lines.append(f"- Total Revenue at Risk:   ${c['rev_at_risk']:,.2f}")
+        report_lines.append(f"- Churn Platform Status:   {c['status']}")
+    else:
+        report_lines.append("Churn prediction data not available.")
+    report_lines.append("")
+    
+    # 5. Inventory Optimization
+    report_lines.append("5. INVENTORY & SUPPLY CHAIN OPTIMIZATION")
+    report_lines.append("----------------------------------------")
+    if data['inventory']:
+        i = data['inventory']
+        report_lines.append(f"- Inventory Health Score:  {i['health_score']:.2f} / 100")
+        report_lines.append(f"- Total Products Tracked:  {i['tot_prod']:,}")
+        report_lines.append(f"- Critical Risk Products:  {i['crit_risk']:,} ({i['crit_risk_pct']:.1f}% of catalog)")
+        report_lines.append(f"- Reorder Recommendations: {i['reorder_count']:,}")
+        report_lines.append(f"- Simulated Stock Value:   ${i['sim_val']:,.2f}")
+        report_lines.append(f"- Excess Inventory Value:  ${i['ex_val']:,.2f}")
+    else:
+        report_lines.append("Inventory optimization data not available.")
+    report_lines.append("")
+    
+    # 6. Priority Alerts Count
+    report_lines.append("6. SYSTEM ALERTS SUMMARY")
+    report_lines.append("------------------------")
+    if data['alerts']:
+        a = data['alerts']
+        report_lines.append(f"- Active Alerts Count:     {a['tot_alerts']}")
+        report_lines.append(f"  • Critical Alerts:       {a['crit_alerts']}")
+        report_lines.append(f"  • Warning Alerts:        {a['warn_alerts']}")
+        report_lines.append(f"  • Opportunity Alerts:    {a['opp_alerts']}")
+        report_lines.append(f"  • Immediate Reorders Req: {a['imm_reorder']}")
+    else:
+        report_lines.append("Alerts data not available.")
         
     report_lines.append("")
     report_lines.append("================================================================================")
@@ -571,25 +649,111 @@ def compile_executive_report():
     
     return "\n".join(report_lines)
 
-# Compile report
-report_text = compile_executive_report()
+# Compile data and text
+exec_data = get_executive_summary_data()
+report_text = generate_txt_report(exec_data)
 
-# Executive Summary layout
-st.markdown("""<div class="export-card">
-<div class="export-title">📋 RetailPulse Executive Summary</div>
-<div class="export-metadata">
-View the live consolidated business report below. This report brings together key performance indicators across all modules.
-</div>
-</div>""", unsafe_allow_html=True)
+def render_dashboard_card(title, kpis, icon=""):
+    html = f"""<div class="export-card" style="height: 100%;">
+<h3 style="margin-top:0; font-size: 1.1rem; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">{icon} {title}</h3>
+"""
+    for label, val in kpis:
+        html += f'<div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="color: #64748b; font-size: 0.9rem;">{label}</span><span style="font-weight: 600; color: #0f172a; font-size: 0.95rem;">{val}</span></div>'
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
 
-# Preview the text inside Streamlit in a code-block
-st.code(report_text, language="text")
+def render_status_badge(status):
+    if status == 'ACTIVE' or status == 'HEALTHY':
+        return f'<span class="status-badge status-active">{status}</span>'
+    elif status == 'INACTIVE':
+        return f'<span class="status-badge status-inactive">{status}</span>'
+    elif status == 'CRITICAL RISK':
+        return f'<span class="status-badge status-inactive" style="background-color: #fef2f2; color: #ef4444;">{status}</span>'
+    else:
+        return f'<span class="status-badge" style="background-color: #fef9c3; color: #854d0e;">{status}</span>'
+
+# Dashboard Layout Row 1
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    kpis = [(mod, render_status_badge(stat)) for mod, stat in exec_data['platform_status'].items()]
+    render_dashboard_card("Platform Status", kpis, "🟢")
+
+with col2:
+    if exec_data['forecasting']:
+        f = exec_data['forecasting']
+        kpis = [
+            ("Model", f.get('model_name')),
+            ("Val MAPE", f"{f.get('val_mape'):.2f}%"),
+            ("Horizon", f.get('horizon')),
+            ("Revenue Trend", f.get('trend', 'N/A'))
+        ]
+    else:
+        kpis = [("Status", "Data Unavailable")]
+    render_dashboard_card("Demand Forecasting", kpis, "📈")
+
+with col3:
+    if exec_data['segmentation']:
+        s = exec_data['segmentation']
+        kpis = [
+            ("Total Customers", f"{s['total_customers']:,}"),
+            ("Platform Revenue", f"${s['total_rev']:,.2f}"),
+            ("High-Value Base", f"{s['high_val_pct']:.1f}%"),
+            ("Active Clusters", f"{s['num_seg']}")
+        ]
+    else:
+        kpis = [("Status", "Data Unavailable")]
+    render_dashboard_card("Customer Segmentation", kpis, "👥")
+
+# Dashboard Layout Row 2
+col4, col5, col6 = st.columns(3)
+
+with col4:
+    if exec_data['churn']:
+        c = exec_data['churn']
+        kpis = [
+            ("Platform Status", render_status_badge(c['status'])),
+            ("High-Risk Count", f"{c['high_risk_count']:,}"),
+            ("Revenue at Risk", f"${c['rev_at_risk']:,.2f}")
+        ]
+    else:
+        kpis = [("Status", "Data Unavailable")]
+    render_dashboard_card("Churn Prediction", kpis, "⚠️")
+
+with col5:
+    if exec_data['inventory']:
+        i = exec_data['inventory']
+        kpis = [
+            ("Health Score", f"{i['health_score']:.1f} / 100"),
+            ("Critical Risk Items", f"{i['crit_risk']:,}"),
+            ("Reorders Req", f"{i['reorder_count']:,}"),
+            ("Excess Stock Value", f"${i['ex_val']:,.2f}")
+        ]
+    else:
+        kpis = [("Status", "Data Unavailable")]
+    render_dashboard_card("Inventory Optimization", kpis, "📦")
+
+with col6:
+    if exec_data['alerts']:
+        a = exec_data['alerts']
+        kpis = [
+            ("Total Active Alerts", f"<span style='font-weight: 700; color: #0f172a;'>{a['tot_alerts']}</span>"),
+            ("Critical Alerts", f"<span style='color: #ef4444;'>{a['crit_alerts']}</span>"),
+            ("Opportunity Alerts", f"<span style='color: #22c55e;'>{a['opp_alerts']}</span>"),
+            ("Immediate Reorders", f"<span style='color: #f59e0b;'>{a['imm_reorder']}</span>")
+        ]
+    else:
+        kpis = [("Status", "Data Unavailable")]
+    render_dashboard_card("System Alerts", kpis, "🔔")
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Export as TXT file
 st.download_button(
-    label="Download Executive Summary (TXT)",
+    label="Download Executive Summary Report (TXT)",
     data=report_text,
     file_name="retailpulse_executive_summary.txt",
     mime="text/plain",
     key="dl_executive_summary"
 )
+
