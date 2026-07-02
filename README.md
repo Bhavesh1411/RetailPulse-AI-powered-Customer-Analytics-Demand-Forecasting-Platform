@@ -27,10 +27,8 @@ RetailPulse is an end-to-end predictive machine learning and decision intelligen
 7. [Operational Workflow](#7-operational-workflow)
 8. [Performance & Business Results](#8-performance--business-results)
 9. [Installation & Setup](#9-installation--setup)
-10. [Visual Assets & Screen Layouts](#10-visual-assets--screen-layouts)
-11. [Future Enhancements](#11-future-enhancements)
-12. [Repository Details](#12-repository-details)
-13. [Repository Statistics](#13-repository-statistics)
+10. [Repository Details](#10-repository-details)
+11. [Repository Statistics](#11-repository-statistics)
 
 ---
 
@@ -264,60 +262,7 @@ The user interface is split into 10 key modules, protected behind session-based 
 
 ---
 
-## 10. Visual Assets & Screen Layouts
-
-The RetailPulse dashboard is built with a focus on delivering high-value business intelligence. Below are the key modules comprising the application:
-
-### Executive Dashboard
-*A high-level index summarizing overall operational capabilities and top-level KPIs.*
-![Executive Dashboard - KPIs](assets/executive_overview_1.png)
-![Executive Dashboard - Business Summary](assets/executive_overview_2.png)
-
-### Demand Forecasting
-*Provides 8-week out-of-sample sales projections, tracking validation metrics and holiday-driven demand trends.*
-![Demand Forecasting - KPIs](assets/demand_forecasting_1.png)
-![Demand Forecasting - Validation](assets/demand_forecasting_2.png)
-![Demand Forecasting - 8-Week Forecast](assets/demand_forecasting_3.png)
-![Demand Forecasting - Data](assets/demand_forecasting_4.png)
-
-### Customer Segmentation
-*Identifies high-value VIPs and at-risk cohorts using RFM profiling and KMeans clustering to power targeted marketing.*
-![Customer Segmentation](assets/customer_segmentation.png)
-
-### True Churn Prediction
-*Flags customers with a >70% probability of churn over the next 90 days, highlighting key risk factors via SHAP values.*
-![True Churn Prediction](assets/churn_prediction.png)
-
-### Inventory Optimization
-*Calculates Safety Stock, ROP, and EOQ to prevent stockouts while categorizing the catalog via ABC heuristic logic.*
-![Inventory Optimization](assets/inventory_optimization.png)
-
-### Alerts & Monitoring
-*A centralized warning hub that automatically surfaces critical inventory deficits, revenue at risk, and actionable opportunities.*
-![Alerts & Monitoring](assets/alerts_and_monitoring.png)
-
-### Prediction & Decision Center
-*An interactive query portal providing prescriptive, tailored recommendations for any specific Customer ID or Product ID.*
-![Prediction & Decision Center](assets/prediction_center.png)
-
----
-
-## 11. Future Enhancements
-
-*Please note that the following features are not part of the current implementation and are planned for future releases:*
-
-* **PostgreSQL Integration:** Transition from local CSV/JSON cache files to relational databases to support live, multi-user queries.
-* **Docker Deployment:** Build Docker images for production deployment via container orchestration engines.
-* **Cloud Hosting:** Deploy dashboard deployments using managed cloud platforms (AWS Elastic Beanstalk or GCP App Engine).
-* **REST API:** Expose model endpoints via FastAPIs for cross-platform integration.
-* **Real-time Streaming:** Handle streaming inventory counts using Kafka or Pub/Sub handlers.
-* **Automated Model Retraining:** Implement a scheduled pipeline to retrain models periodically as new transaction data arrives.
-* **CI/CD Pipeline:** Automate test execution and deployments via GitHub Actions.
-* **MLOps Integration:** Streamline versioning and parameter logging via MLflow.
-
----
-
-## 12. Repository Details
+## 10. Repository Details
 
 * **Project Status:** Pilot Ready / Business Validation Complete
 * **Current Version:** v1.0.0
@@ -329,7 +274,7 @@ The RetailPulse dashboard is built with a focus on delivering high-value busines
 
 ---
 
-## 13. Repository Statistics
+## 11. Repository Statistics
 
 The following statistics summarize the current state of the implementation *(Note: These statistics reflect the state of the repository at the time of generation)*:
 
