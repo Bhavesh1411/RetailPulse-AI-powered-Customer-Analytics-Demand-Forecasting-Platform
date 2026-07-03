@@ -43,13 +43,6 @@ def verify_credentials(username, password):
     if not valid_password:
         valid_password = "retailpulse123"
 
-    # Print comparison details for debugging (excluding sensitive secrets if not default)
-    is_default_pass = (valid_password == "retailpulse123")
-    masked_pass = valid_password if is_default_pass else "[REDACTED_SECRET]"
-    entered_masked_pass = password if is_default_pass else "[REDACTED_INPUT]"
-    
-    print(f"[AUTH DICTIONARY COMPARISON] Entered Username: '{username}' | Expected Username: '{valid_username}'")
-    print(f"[AUTH DICTIONARY COMPARISON] Entered Password: '{entered_masked_pass}' | Expected Password: '{masked_pass}'")
 
     if username == valid_username and password == valid_password:
         return True

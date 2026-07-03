@@ -38,13 +38,9 @@ st.markdown("""
 init_session_state()
 
 # Streamlit Multi-Page routing entry point
-st.sidebar.write(f"**Debug - app.py: is_authenticated():** `{is_authenticated()}`")
-st.sidebar.write(f"**Debug - app.py: session_state authenticated:** `{st.session_state.get('authenticated')}`")
 
 if not is_authenticated():
-    st.sidebar.write("**Debug - app.py: Not authenticated. Rendering login...**")
     render_sidebar()
     render_login_page()
 else:
-    st.sidebar.write("**Debug - app.py: Authenticated. Redirecting to Executive Overview...**")
     st.switch_page("pages/1_Executive_Overview.py")
