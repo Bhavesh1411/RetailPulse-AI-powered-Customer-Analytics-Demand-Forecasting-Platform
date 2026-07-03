@@ -359,58 +359,6 @@ def evaluate_modules_health():
 
 health_data = evaluate_modules_health()
 
-# ==========================================
-# DYNAMIC PROJECT STATISTICS (Modification 1)
-# ==========================================
-
-def get_project_statistics():
-    """Gathers overall file counts dynamically from the project structure."""
-    stats = {
-        "datasets": 0,
-        "models": 0,
-        "pages": 0,
-        "reports": 0,
-        "exports": 0,
-        "predictions": 0
-    }
-    
-    # 1. Total Pages
-    pages_dir = os.path.join(dashboard_dir, "pages")
-    if os.path.exists(pages_dir):
-        stats["pages"] = len([f for f in os.listdir(pages_dir) if f.endswith('.py')])
-        
-    # 2. Total Datasets & Prediction files & Models & Reports
-    for root, dirs, files in os.walk(base_dir):
-        # Skip git, cache, .streamlit directories
-        if any(x in root for x in [".git", "__pycache__", ".streamlit"]):
-            continue
-        parent = os.path.basename(root)
-        for f in files:
-            # Models
-            if f.endswith('.pkl') and parent in ["models", "processed_data"]:
-                stats["models"] += 1
-            # Predictions
-            elif f.endswith('.csv') and parent == "predictions":
-                stats["predictions"] += 1
-            # Reports
-            elif f.endswith('.md') and parent in ["reports", "documentation"]:
-                stats["reports"] += 1
-            # Datasets
-            elif f.endswith(('.csv', '.json')) and parent in ["datasets", "outputs", "processed_data"]:
-                stats["datasets"] += 1
-                
-    # 3. Export Files
-    export_dirs = [
-        os.path.join(dashboard_dir, "exports"),
-        os.path.join(base_dir, "processed_data", "excel_exports")
-    ]
-    for ed in export_dirs:
-        if os.path.exists(ed):
-            stats["exports"] += len([f for f in os.listdir(ed) if os.path.isfile(os.path.join(ed, f))])
-            
-    return stats
-
-stats = get_project_statistics()
 
 # ==========================================
 # DATASET STATUS METADATA
@@ -652,74 +600,11 @@ with reg4:
         </div>
     """, unsafe_allow_html=True)
 
-# ==========================================
-# SECTION 5 – PROJECT STATISTICS
-# ==========================================
-st.markdown("<div class='section-title'>Section 5: Project Statistics</div>", unsafe_allow_html=True)
-
-col_s1, col_s2, col_s3 = st.columns(3)
-col_s4, col_s5, col_s6 = st.columns(3)
-
-with col_s1:
-    st.markdown(f"""
-        <div class="kpi-card" style="border-top: 3px solid var(--primary);">
-            <div class="kpi-title">Total Datasets</div>
-            <div class="kpi-value">{stats['datasets']} files</div>
-            <div class="kpi-subtitle">CSV & JSON formats</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col_s2:
-    st.markdown(f"""
-        <div class="kpi-card" style="border-top: 3px solid var(--secondary);">
-            <div class="kpi-title">Total Models</div>
-            <div class="kpi-value">{stats['models']} binaries</div>
-            <div class="kpi-subtitle">Pickle (.pkl) models</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col_s3:
-    st.markdown(f"""
-        <div class="kpi-card" style="border-top: 3px solid var(--success);">
-            <div class="kpi-title">Dashboard Pages</div>
-            <div class="kpi-value">{stats['pages']} pages</div>
-            <div class="kpi-subtitle">Streamlit script files</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col_s4:
-    st.markdown(f"""
-        <div class="kpi-card" style="border-top: 3px solid var(--warning);">
-            <div class="kpi-title">Reports Generated</div>
-            <div class="kpi-value">{stats['reports']} reports</div>
-            <div class="kpi-subtitle">Markdown analysis logs</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col_s5:
-    st.markdown(f"""
-        <div class="kpi-card" style="border-top: 3px solid var(--danger);">
-            <div class="kpi-title">Export Files</div>
-            <div class="kpi-value">{stats['exports']} files</div>
-            <div class="kpi-subtitle">User-downloaded Excel/CSVs</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col_s6:
-    st.markdown(f"""
-        <div class="kpi-card" style="border-top: 3px solid var(--slate-900);">
-            <div class="kpi-title">Prediction Files</div>
-            <div class="kpi-value">{stats['predictions']} predictions</div>
-            <div class="kpi-subtitle">Inference output datasets</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("<br>", unsafe_allow_html=True)
 
 # ==========================================
-# SECTION 6 – STORAGE LAYER
+# SECTION 5 – STORAGE LAYER
 # ==========================================
-st.markdown("<div class='section-title'>Section 6: Storage Layer</div>", unsafe_allow_html=True)
+st.markdown("<div class='section-title'>Section 5: Storage Layer</div>", unsafe_allow_html=True)
 
 store_col1, store_col2 = st.columns(2)
 
@@ -750,9 +635,9 @@ with store_col2:
     """, unsafe_allow_html=True)
 
 # ==========================================
-# SECTION 7 – SYSTEM INFORMATION
+# SECTION 6 – SYSTEM INFORMATION
 # ==========================================
-st.markdown("<div class='section-title'>Section 7: System Information</div>", unsafe_allow_html=True)
+st.markdown("<div class='section-title'>Section 6: System Information</div>", unsafe_allow_html=True)
 
 sys_info = {
     "Parameter": [
