@@ -225,12 +225,7 @@ total_active_alerts = critical_alerts + warning_alerts + opportunity_alerts
 # ==========================================
 st.title("🚨 Alerts & Monitoring System")
 
-header_col1, header_col2 = st.columns([3, 1])
-with header_col1:
-    st.markdown(f"<p style='color:{THEME['text']}; font-size:1.1rem; margin-top:-1rem;'>Centralized risk identification and opportunity monitoring.</p>", unsafe_allow_html=True)
-with header_col2:
-    if last_updated:
-        st.markdown(f"<p style='color:{THEME['secondary']}; font-size:0.9rem; margin-top:-1rem; text-align:right;'>Last Updated: <strong>{last_updated}</strong></p>", unsafe_allow_html=True)
+st.markdown(f"<p style='color:{THEME['text']}; font-size:1.1rem; margin-top:-1rem;'>Centralized risk identification and opportunity monitoring.</p>", unsafe_allow_html=True)
 
 st.markdown("---")
 
