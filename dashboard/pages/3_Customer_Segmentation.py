@@ -291,6 +291,78 @@ with col_chart2:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # -----------------
+# 2B. BUSINESS ANALYTICS VISUALIZATIONS
+# -----------------
+st.markdown("<section><div class='section-header'>Business Analytics Visualizations</div></section>", unsafe_allow_html=True)
+
+col_ba1, col_ba2 = st.columns(2)
+
+with col_ba1:
+    if 'monetary' in df.columns and 'cluster_name' in df.columns:
+        rev_dist_df = df.groupby('cluster_name')['monetary'].sum().reset_index()
+        rev_dist_df.columns = ['Segment', 'Revenue']
+        fig_rev_donut = px.pie(
+            rev_dist_df,
+            names='Segment',
+            values='Revenue',
+            hole=0.4,
+            color='Segment',
+            color_discrete_map={
+                'VIP Customers': '#2563EB',
+                'Potential Loyalists': '#0EA5E9',
+                'At-Risk Customers': '#EF4444'
+            },
+            title='Revenue Contribution by Segment'
+        )
+        # Update text to show value nicely
+        fig_rev_donut.update_traces(
+            textinfo='percent+label',
+            hovertemplate='<b>%{label}</b><br>Revenue: $%{value:,.2f}<br>Contribution: %{percent}',
+            textfont_size=11
+        )
+        fig_rev_donut.update_layout(
+            showlegend=False,
+            margin=dict(t=40, b=24, l=16, r=16),
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            font=dict(color='#0F172A'),
+            height=320
+        )
+        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+        st.plotly_chart(fig_rev_donut, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        st.markdown('<div class="dashboard-card"><h3>Revenue Contribution</h3><p>Not Available</p></div>', unsafe_allow_html=True)
+
+with col_ba2:
+    if all(col in df.columns for col in ['recency', 'frequency', 'monetary']):
+        fig_rfm = px.density_heatmap(
+            df,
+            x='recency',
+            y='frequency',
+            z='monetary',
+            histfunc='avg',
+            title='Customer RFM Heatmap (Avg Monetary)',
+            color_continuous_scale='Blues'
+        )
+        fig_rfm.update_layout(
+            margin=dict(t=40, b=24, l=16, r=16),
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            font=dict(color='#0F172A'),
+            height=320,
+            xaxis_title="Recency (Days)",
+            yaxis_title="Frequency (Orders)",
+            coloraxis_colorbar_title="Avg Value"
+        )
+        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+        st.plotly_chart(fig_rfm, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        st.markdown('<div class="dashboard-card"><h3>Customer RFM Heatmap</h3><p>Not Available</p></div>', unsafe_allow_html=True)
+
+
+# -----------------
 # 3. SEGMENT INSIGHTS TABLE
 # -----------------
 st.markdown("<section><div class='section-header'>Segment Behavioral Profiling</div></section>", unsafe_allow_html=True)

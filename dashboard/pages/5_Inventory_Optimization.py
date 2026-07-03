@@ -183,6 +183,58 @@ with col_w2:
 st.markdown("---")
 
 # ==========================================
+# SECTION 1B: STOCKOUT RISK MATRIX
+# ==========================================
+st.markdown("### 🎯 Stockout Risk Matrix")
+
+if not master_df.empty and all(col in master_df.columns for col in ['simulated_current_stock', 'stockout_probability', 'abc_class', 'product_id', 'safety_stock', 'reorder_point']):
+    plot_df = master_df.copy()
+    plot_df['Below Reorder Point'] = plot_df['simulated_current_stock'] < plot_df['reorder_point']
+    plot_df['Marker Size'] = plot_df['Below Reorder Point'].apply(lambda x: 12 if x else 6)
+    
+    fig_matrix = px.scatter(
+        plot_df,
+        x='simulated_current_stock',
+        y='stockout_probability',
+        color='abc_class',
+        color_discrete_map=THEME['abc_colors'],
+        symbol='Below Reorder Point',
+        symbol_map={True: 'diamond', False: 'circle'},
+        size='Marker Size',
+        hover_data={
+            'product_id': True,
+            'simulated_current_stock': ':.1f',
+            'safety_stock': ':.1f',
+            'reorder_point': ':.1f',
+            'stockout_probability': ':.1%',
+            'Below Reorder Point': False,
+            'Marker Size': False,
+            'abc_class': True
+        },
+        labels={
+            'simulated_current_stock': 'Current Stock',
+            'stockout_probability': 'Stockout Probability',
+            'abc_class': 'ABC Class'
+        },
+        title='Current Stock vs Stockout Probability'
+    )
+    
+    fig_matrix.update_layout(
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        margin=dict(l=20, r=20, t=40, b=20),
+        xaxis=dict(gridcolor='#F1F5F9'),
+        yaxis=dict(gridcolor='#F1F5F9')
+    )
+    st.markdown('<div style="background-color:#FFFFFF; padding:20px; border-radius:10px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">', unsafe_allow_html=True)
+    st.plotly_chart(fig_matrix, use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+else:
+    st.markdown('<div style="background-color:#FFFFFF; padding:20px; border-radius:10px; box-shadow:0 4px 6px rgba(0,0,0,0.05);"><h3>Stockout Risk Matrix</h3><p>Not Available</p></div>', unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ==========================================
 # SECTION 2: ABC ANALYSIS
 # ==========================================
 st.markdown("### 🔠 ABC Classification Analysis")

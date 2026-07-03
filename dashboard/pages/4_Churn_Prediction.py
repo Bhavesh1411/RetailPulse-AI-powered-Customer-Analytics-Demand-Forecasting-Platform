@@ -404,6 +404,45 @@ with col_ch2:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # -----------------
+# 2B. BUSINESS ANALYTICS VISUALIZATIONS
+# -----------------
+st.markdown("<section><div class='section-header'>Revenue at Risk Analysis</div></section>", unsafe_allow_html=True)
+
+if 'monetary' in df.columns and 'risk_category' in df.columns:
+    risk_rev_df = df.groupby('risk_category')['monetary'].sum().reset_index()
+    risk_rev_df.columns = ['Risk Category', 'Revenue at Risk']
+    
+    fig_risk_rev = px.bar(
+        risk_rev_df,
+        x='Risk Category',
+        y='Revenue at Risk',
+        color='Risk Category',
+        color_discrete_map={
+            'Low Risk': '#22C55E',
+            'Medium Risk': '#F59E0B',
+            'High Risk': '#EF4444'
+        },
+        text=risk_rev_df['Revenue at Risk'].apply(lambda x: f"${x/1_000_000:.2f}M" if x >= 1_000_000 else f"${x/1_000:.2f}K"),
+        title='Total Revenue Exposed by Risk Category'
+    )
+    fig_risk_rev.update_traces(textposition='outside', textfont_size=12)
+    fig_risk_rev.update_layout(
+        showlegend=False,
+        margin=dict(t=40, b=24, l=16, r=16),
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='#0F172A'),
+        yaxis=dict(gridcolor='#F1F5F9', title='Total Revenue Exposed ($)'),
+        xaxis=dict(title='', categoryorder='array', categoryarray=['High Risk', 'Medium Risk', 'Low Risk']),
+        height=380
+    )
+    st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+    st.plotly_chart(fig_risk_rev, use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+else:
+    st.markdown('<div class="dashboard-card"><h3>Revenue at Risk Analysis</h3><p>Not Available</p></div>', unsafe_allow_html=True)
+
+# -----------------
 # 3. CUSTOMER RISK TABLE
 # -----------------
 st.markdown("<section><div class='section-header'>High Churn Risk Customers</div></section>", unsafe_allow_html=True)

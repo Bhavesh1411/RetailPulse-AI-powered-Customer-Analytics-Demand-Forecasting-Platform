@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+import plotly.express as px
 import json
 import os
 from auth.session_manager import require_auth
@@ -411,6 +412,47 @@ st.markdown("""
         </table>
     </div>
 """, unsafe_allow_html=True)
+
+# ==========================================
+# SECTION 2B: MODEL PERFORMANCE COMPARISON
+# ==========================================
+st.markdown("<div class='section-header'>Section 2B: Forecast Model Performance Comparison</div>", unsafe_allow_html=True)
+
+if 'model_info' in data and all(k in data['model_info'] for k in ['train_mape', 'val_mape', 'test_mape']):
+    perf_df = pd.DataFrame({
+        'Dataset Split': ['Train MAPE', 'Validation MAPE', 'Test MAPE'],
+        'Error (%)': [data['model_info']['train_mape'], data['model_info']['val_mape'], data['model_info']['test_mape']]
+    })
+    
+    fig_perf = px.bar(
+        perf_df,
+        x='Dataset Split',
+        y='Error (%)',
+        color='Dataset Split',
+        color_discrete_map={
+            'Train MAPE': '#2563EB',
+            'Validation MAPE': '#F59E0B',
+            'Test MAPE': '#EF4444'
+        },
+        text=perf_df['Error (%)'].apply(lambda x: f"{x:.2f}%"),
+        title='Forecast Error Trend by Data Split'
+    )
+    fig_perf.update_traces(textposition='outside', textfont_size=12)
+    fig_perf.update_layout(
+        showlegend=False,
+        margin=dict(t=40, b=24, l=16, r=16),
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='#0F172A'),
+        yaxis=dict(gridcolor='#F1F5F9', title='Mean Absolute Percentage Error (%)'),
+        xaxis=dict(title=''),
+        height=350
+    )
+    st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+    st.plotly_chart(fig_perf, use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+else:
+    st.markdown('<div class="dashboard-card"><h3>Forecast Model Performance Comparison</h3><p>Not Available</p></div>', unsafe_allow_html=True)
 
 # ==========================================
 # SECTION 3 – ACTUAL VS FORECAST
