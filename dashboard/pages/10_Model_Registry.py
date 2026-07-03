@@ -450,20 +450,6 @@ model_tabs = st.tabs([
     "📦 Inventory Heuristics"
 ])
 
-# Helper for artifact badge rendering
-def render_artifact_checks(checks):
-    st.markdown("##### 📁 Artifact Verification Registry")
-    for key, item in checks.items():
-        badge_class = "badge-active" if item["exists"] else "badge-error"
-        badge_label = "Exists" if item["exists"] else "Missing"
-        icon = "🟢" if item["exists"] else "🔴"
-        
-        st.markdown(f"""
-            <div class="artifact-item">
-                <span><code>{item['path']}</code></span>
-                <span class="health-badge {badge_class}">{icon} {badge_label}</span>
-            </div>
-        """, unsafe_allow_html=True)
 
 # -----------------
 # TAB 2: Customer Segmentation Model
@@ -471,29 +457,22 @@ def render_artifact_checks(checks):
 with model_tabs[0]:
     st.markdown("### Section 2: Customer Segmentation Model")
     
-    col_l, col_r = st.columns([3, 2])
-    with col_l:
-        st.markdown("##### ⚙️ Model Specifications")
-        spec_df = pd.DataFrame([
-            {"Parameter": "Model Name", "Value": "Customer Segmentation Model"},
-            {"Parameter": "Algorithm", "Value": "KMeans Clustering"},
-            {"Parameter": "Purpose", "Value": "Groups customers with similar purchasing behavior."},
-            {"Parameter": "Dataset Used", "Value": "processed_data/customer_features.csv"},
-            {"Parameter": "Standardized Features Used", "Value": "6 Variables"},
-            {"Parameter": "Number of Clusters (K)", "Value": segmentation_m["clusters_count"]},
-            {"Parameter": "Silhouette Score", "Value": segmentation_m["silhouette"]},
-            {"Parameter": "Output Dataset File", "Value": "customer_segmentation/datasets/customer_segments_kmeans_finalone.csv"},
-            {"Parameter": "Dataset Size", "Value": segmentation_m["dataset_size"]},
-            {"Parameter": "Training/Modified Date", "Value": segmentation_m["training_date"]},
-            {"Parameter": "Version", "Value": "v1.0"},
-            {"Parameter": "Status", "Value": "Active / Deployed"}
-        ])
-        st.dataframe(spec_df, use_container_width=True, hide_index=True)
-        
-    with col_r:
-        st.markdown('<div class="artifact-box">', unsafe_allow_html=True)
-        render_artifact_checks(health_status["segmentation"])
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("##### ⚙️ Model Specifications")
+    spec_df = pd.DataFrame([
+        {"Parameter": "Model Name", "Value": "Customer Segmentation Model"},
+        {"Parameter": "Algorithm", "Value": "KMeans Clustering"},
+        {"Parameter": "Purpose", "Value": "Groups customers with similar purchasing behavior."},
+        {"Parameter": "Dataset Used", "Value": "processed_data/customer_features.csv"},
+        {"Parameter": "Standardized Features Used", "Value": "6 Variables"},
+        {"Parameter": "Number of Clusters (K)", "Value": segmentation_m["clusters_count"]},
+        {"Parameter": "Silhouette Score", "Value": segmentation_m["silhouette"]},
+        {"Parameter": "Output Dataset File", "Value": "customer_segmentation/datasets/customer_segments_kmeans_finalone.csv"},
+        {"Parameter": "Dataset Size", "Value": segmentation_m["dataset_size"]},
+        {"Parameter": "Training/Modified Date", "Value": segmentation_m["training_date"]},
+        {"Parameter": "Version", "Value": "v1.0"},
+        {"Parameter": "Status", "Value": "Active / Deployed"}
+    ])
+    st.dataframe(spec_df, use_container_width=True, hide_index=True)
 
 # -----------------
 # TAB 3: True Churn Prediction Model
@@ -501,30 +480,23 @@ with model_tabs[0]:
 with model_tabs[1]:
     st.markdown("### Section 3: True Churn Prediction Model")
     
-    col_l, col_r = st.columns([3, 2])
-    with col_l:
-        st.markdown("##### ⚙️ Model Specifications")
-        spec_df = pd.DataFrame([
-            {"Parameter": "Model Name", "Value": "True Churn Prediction Model"},
-            {"Parameter": "Algorithm", "Value": "LightGBM Classifier"},
-            {"Parameter": "Purpose", "Value": "Predicts customers likely to stop purchasing."},
-            {"Parameter": "Dataset Used", "Value": "processed_data/churn_model_dataset.csv"},
-            {"Parameter": "Accuracy", "Value": churn_m["accuracy"]},
-            {"Parameter": "Precision", "Value": churn_m["precision"]},
-            {"Parameter": "Recall", "Value": churn_m["recall"]},
-            {"Parameter": "F1 Score", "Value": churn_m["f1_score"]},
-            {"Parameter": "ROC AUC", "Value": churn_m["roc_auc"]},
-            {"Parameter": "Features Used", "Value": "Recency, Frequency, Monetary, AOV, Tenure"},
-            {"Parameter": "Prediction Output File", "Value": "churn_prediction_true/predictions/customer_true_churn_predictions.csv"},
-            {"Parameter": "Version", "Value": "v1.0"},
-            {"Parameter": "Status", "Value": "Active / Deployed"}
-        ])
-        st.dataframe(spec_df, use_container_width=True, hide_index=True)
-        
-    with col_r:
-        st.markdown('<div class="artifact-box">', unsafe_allow_html=True)
-        render_artifact_checks(health_status["churn"])
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("##### ⚙️ Model Specifications")
+    spec_df = pd.DataFrame([
+        {"Parameter": "Model Name", "Value": "True Churn Prediction Model"},
+        {"Parameter": "Algorithm", "Value": "LightGBM Classifier"},
+        {"Parameter": "Purpose", "Value": "Predicts customers likely to stop purchasing."},
+        {"Parameter": "Dataset Used", "Value": "processed_data/churn_model_dataset.csv"},
+        {"Parameter": "Accuracy", "Value": churn_m["accuracy"]},
+        {"Parameter": "Precision", "Value": churn_m["precision"]},
+        {"Parameter": "Recall", "Value": churn_m["recall"]},
+        {"Parameter": "F1 Score", "Value": churn_m["f1_score"]},
+        {"Parameter": "ROC AUC", "Value": churn_m["roc_auc"]},
+        {"Parameter": "Features Used", "Value": "Recency, Frequency, Monetary, AOV, Tenure"},
+        {"Parameter": "Prediction Output File", "Value": "churn_prediction_true/predictions/customer_true_churn_predictions.csv"},
+        {"Parameter": "Version", "Value": "v1.0"},
+        {"Parameter": "Status", "Value": "Active / Deployed"}
+    ])
+    st.dataframe(spec_df, use_container_width=True, hide_index=True)
 
 # -----------------
 # TAB 4: Demand Forecasting Model
@@ -532,28 +504,21 @@ with model_tabs[1]:
 with model_tabs[2]:
     st.markdown("### Section 4: Demand Forecasting Model")
     
-    col_l, col_r = st.columns([3, 2])
-    with col_l:
-        st.markdown("##### ⚙️ Model Specifications")
-        spec_df = pd.DataFrame([
-            {"Parameter": "Model Name", "Value": "Demand Forecasting Model"},
-            {"Parameter": "Algorithm", "Value": "XGBoost Regressor + Holiday Features"},
-            {"Parameter": "Forecast Type", "Value": "Weekly Aggregated Sales Forecast"},
-            {"Parameter": "Forecast Horizon", "Value": "8 Weeks"},
-            {"Parameter": "Granularity", "Value": "Weekly"},
-            {"Parameter": "Validation MAPE", "Value": forecast_m["val_mape"]},
-            {"Parameter": "Test MAPE", "Value": forecast_m["test_mape"]},
-            {"Parameter": "Dataset Used", "Value": "processed_data/cleaned_sales_dataset.csv"},
-            {"Parameter": "Features Used", "Value": "Lag Features, Rolling Mean, Holiday Features, Trend Features"},
-            {"Parameter": "Forecast Output File", "Value": "Demand_Forecasting/datasets/weekly_forecast_dashboard_data.json"},
-            {"Parameter": "Status", "Value": "Production Ready / Active"}
-        ])
-        st.dataframe(spec_df, use_container_width=True, hide_index=True)
-        
-    with col_r:
-        st.markdown('<div class="artifact-box">', unsafe_allow_html=True)
-        render_artifact_checks(health_status["forecasting"])
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("##### ⚙️ Model Specifications")
+    spec_df = pd.DataFrame([
+        {"Parameter": "Model Name", "Value": "Demand Forecasting Model"},
+        {"Parameter": "Algorithm", "Value": "XGBoost Regressor + Holiday Features"},
+        {"Parameter": "Forecast Type", "Value": "Weekly Aggregated Sales Forecast"},
+        {"Parameter": "Forecast Horizon", "Value": "8 Weeks"},
+        {"Parameter": "Granularity", "Value": "Weekly"},
+        {"Parameter": "Validation MAPE", "Value": forecast_m["val_mape"]},
+        {"Parameter": "Test MAPE", "Value": forecast_m["test_mape"]},
+        {"Parameter": "Dataset Used", "Value": "processed_data/cleaned_sales_dataset.csv"},
+        {"Parameter": "Features Used", "Value": "Lag Features, Rolling Mean, Holiday Features, Trend Features"},
+        {"Parameter": "Forecast Output File", "Value": "Demand_Forecasting/datasets/weekly_forecast_dashboard_data.json"},
+        {"Parameter": "Status", "Value": "Production Ready / Active"}
+    ])
+    st.dataframe(spec_df, use_container_width=True, hide_index=True)
 
 # -----------------
 # TAB 5: Inventory Optimization Engine
@@ -561,34 +526,27 @@ with model_tabs[2]:
 with model_tabs[3]:
     st.markdown("### Section 5: Inventory Optimization Engine")
     
-    col_l, col_r = st.columns([3, 2])
-    with col_l:
-        st.markdown("##### ⚙️ Engine Specifications")
-        st.markdown("""
-            Unlike machine learning classification or regression pipelines, the Inventory Optimization Engine 
-            utilizes deterministic operations research heuristics to minimize replenishment risks and storage costs.
-        """)
-        spec_df = pd.DataFrame([
-            {"Heuristic Component", "Mathematical / Operations Research Methodology"},
-            {"ABC Analysis", "Revenue-based sorting classifying products into Class A (80% rev), B (15% rev), and C (5% rev)."},
-            {"Safety Stock", "Calculated as: Z-score * Demand Std Dev * sqrt(Lead Time) to buffer lead time fluctuations."},
-            {"Reorder Point (ROP)", "Calculated as: (Average Daily Demand * Lead Time) + Safety Stock to trigger purchase cycles."},
-            {"Economic Order Qty (EOQ)", "Calculated as: sqrt((2 * Annual Demand * Order Cost) / Holding Cost) to optimize orders."},
-            {"Stockout Risk", "Probability computed from demand probability density integrations over the lead time period."},
-            {"Inventory Health Score", f"Aggregated benchmark score. Current: {inventory_m['health_score']}"},
-            {"Input Dataset Used", "processed_data/cleaned_sales_dataset.csv"},
-            {"Output Master File", "inventory_optimization/outputs/inventory_master.csv"},
-            {"Output KPI Summary File", "inventory_optimization/outputs/inventory_kpi_summary.csv"},
-            {"Status", "Active / Deployed"}
-        ])
-        # Force column names and render
-        spec_df.columns = ["Heuristic Module", "Methodology / Operational Details"]
-        st.dataframe(spec_df, use_container_width=True, hide_index=True)
-        
-    with col_r:
-        st.markdown('<div class="artifact-box">', unsafe_allow_html=True)
-        render_artifact_checks(health_status["inventory"])
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("##### ⚙️ Engine Specifications")
+    st.markdown("""
+        Unlike machine learning classification or regression pipelines, the Inventory Optimization Engine 
+        utilizes deterministic operations research heuristics to minimize replenishment risks and storage costs.
+    """)
+    spec_df = pd.DataFrame([
+        {"Heuristic Component", "Mathematical / Operations Research Methodology"},
+        {"ABC Analysis", "Revenue-based sorting classifying products into Class A (80% rev), B (15% rev), and C (5% rev)."},
+        {"Safety Stock", "Calculated as: Z-score * Demand Std Dev * sqrt(Lead Time) to buffer lead time fluctuations."},
+        {"Reorder Point (ROP)", "Calculated as: (Average Daily Demand * Lead Time) + Safety Stock to trigger purchase cycles."},
+        {"Economic Order Qty (EOQ)", "Calculated as: sqrt((2 * Annual Demand * Order Cost) / Holding Cost) to optimize orders."},
+        {"Stockout Risk", "Probability computed from demand probability density integrations over the lead time period."},
+        {"Inventory Health Score", f"Aggregated benchmark score. Current: {inventory_m['health_score']}"},
+        {"Input Dataset Used", "processed_data/cleaned_sales_dataset.csv"},
+        {"Output Master File", "inventory_optimization/outputs/inventory_master.csv"},
+        {"Output KPI Summary File", "inventory_optimization/outputs/inventory_kpi_summary.csv"},
+        {"Status", "Active / Deployed"}
+    ])
+    # Force column names and render
+    spec_df.columns = ["Heuristic Module", "Methodology / Operational Details"]
+    st.dataframe(spec_df, use_container_width=True, hide_index=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
