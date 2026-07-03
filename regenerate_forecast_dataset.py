@@ -24,8 +24,8 @@ import json
 # ─────────────────────────────────────────────
 # PATHS
 # ─────────────────────────────────────────────
-INPUT_FILE   = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\sales_dataset_online_retail.csv'
-OUTPUT_DIR   = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data'
+INPUT_FILE   = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data/sales_dataset_online_retail.csv')
+OUTPUT_DIR   = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data')
 OUTPUT_FILE  = os.path.join(OUTPUT_DIR, 'daily_sales_forecast_features.csv')
 REPORT_FILE  = os.path.join(OUTPUT_DIR, 'forecast_regeneration_report.json')
 

@@ -5,8 +5,8 @@ import numpy as np
 def main():
     print("=== COMPILING FINAL REPORT ===")
     
-    reports_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\reports'
-    predictions_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\predictions'
+    reports_dir = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'churn_prediction_true/reports')
+    predictions_dir = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'churn_prediction_true/predictions')
     
     predictions_file = os.path.join(predictions_dir, 'customer_true_churn_predictions.csv')
     

@@ -6,17 +6,52 @@ PostgreSQL can easily replace the hardcoded temporary local credentials
 in the future without modifying the dashboard logic.
 """
 
+import os
+import getpass
+import streamlit as st
+
 def verify_credentials(username, password):
     """
     Verifies user credentials.
-    Currently uses temporary local credentials for development.
+    Reads from Streamlit secrets or Environment Variables to avoid hardcoded credentials.
     TODO: Integrate PostgreSQL authentication here.
     """
-    # Temporary local credentials
-    VALID_USERNAME = "admin"
-    VALID_PASSWORD = "retailpulse123"
+    valid_username = None
+    valid_password = None
 
-    if username == VALID_USERNAME and password == VALID_PASSWORD:
+    # 1. Check Streamlit secrets
+    try:
+        if "USERNAME" in st.secrets:
+            valid_username = st.secrets["USERNAME"]
+        if "PASSWORD" in st.secrets:
+            valid_password = st.secrets["PASSWORD"]
+    except Exception:
+        pass
+
+    # 2. Check environment variables
+    # We only consider environment variables if PASSWORD is explicitly set in env.
+    # This prevents the OS-default USERNAME (like 'LENOVO' on Windows) from triggering
+    # when no custom credentials are provided.
+    if not valid_password:
+        if "PASSWORD" in os.environ:
+            valid_password = os.environ["PASSWORD"]
+            valid_username = os.environ.get("USERNAME", "admin")
+
+    # 3. Fallback to default credentials
+    if not valid_username:
+        valid_username = "admin"
+    if not valid_password:
+        valid_password = "retailpulse123"
+
+    # Print comparison details for debugging (excluding sensitive secrets if not default)
+    is_default_pass = (valid_password == "retailpulse123")
+    masked_pass = valid_password if is_default_pass else "[REDACTED_SECRET]"
+    entered_masked_pass = password if is_default_pass else "[REDACTED_INPUT]"
+    
+    print(f"[AUTH DICTIONARY COMPARISON] Entered Username: '{username}' | Expected Username: '{valid_username}'")
+    print(f"[AUTH DICTIONARY COMPARISON] Entered Password: '{entered_masked_pass}' | Expected Password: '{masked_pass}'")
+
+    if username == valid_username and password == valid_password:
         return True
     
     return False

@@ -1,5 +1,9 @@
 __pycache__/
 *.pyc
-processed_data/
-.env
+.venv/
+env/
 .ipynb_checkpoints/
+.streamlit/secrets.toml
+.env
+.DS_Store
+Thumbs.db

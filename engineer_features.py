@@ -6,8 +6,8 @@ def main():
     print("Starting Feature Engineering Phase...")
     
     # Paths
-    input_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\cleaned_sales_dataset.csv'
-    output_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data'
+    input_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data/cleaned_sales_dataset.csv')
+    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data')
     
     # 1. Load Cleaned Dataset
     print(f"Loading cleaned dataset from: {input_file}")

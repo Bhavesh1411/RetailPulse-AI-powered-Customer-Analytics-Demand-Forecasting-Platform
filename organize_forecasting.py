@@ -4,7 +4,7 @@ import shutil
 import re
 
 def main():
-    root_dir = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse"
+    root_dir = os.path.dirname(os.path.abspath(__file__))
     brain_dir = r"C:\Users\LENOVO\.gemini\antigravity-ide\brain\ef499792-a9c3-4bd3-a984-6da54fe0fe7d"
     
     demand_dir = os.path.join(root_dir, "Demand_Forecasting")
@@ -102,8 +102,8 @@ def main():
         
         # also replace the base_path in forecasting_audit.py if needed
         updated_content = updated_content.replace(
-            r'base_path = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data"',
-            r'base_path = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\Demand_Forecasting\datasets"'
+            r"base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data')",
+            r"base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Demand_Forecasting/datasets')"
         )
         
         if content != updated_content:

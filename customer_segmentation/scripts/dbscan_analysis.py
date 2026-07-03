@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from sklearn.cluster import DBSCAN
@@ -10,8 +11,8 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 2000)
 pd.set_option('display.float_format', '{:.4f}'.format)
 
-scaled_path = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\clustering_dataset_std_v2.csv'
-original_path = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customer_segments_kmeans_finalone.csv'
+scaled_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/clustering_dataset_std_v2.csv')
+original_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customer_segments_kmeans_finalone.csv')
 
 df_scaled = pd.read_csv(scaled_path)
 df_original = pd.read_csv(original_path)
@@ -214,7 +215,7 @@ if len(strict_noise_df) > 0:
         print(f"    Combined Spend: ${strict_ultra['monetary'].sum():,.2f}")
 
 # Save
-output_path = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customer_segments_dbscan.csv'
+output_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customer_segments_dbscan.csv')
 df_original.to_csv(output_path, index=False)
 print(f"\nSaved DBSCAN assignments to: {output_path}")
 print("\nDone.")

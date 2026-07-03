@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 
@@ -7,7 +8,7 @@ import numpy as np
 # plus re-assign clusters from clustering_dataset_std_v2.
 # Actually the script saved to customer_segments_kmeans_v2.csv via df_clean.to_csv
 # The file may have been saved without the suffix correctly. Let's try the alternative name:
-segments_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customer_segments_kmeans_.csv'
+segments_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customer_segments_kmeans_.csv')
 df = pd.read_csv(segments_file)
 
 features = ['recency', 'frequency', 'monetary', 'average_purchase_value', 'customer_tenure', 'weekend_sales_ratio']

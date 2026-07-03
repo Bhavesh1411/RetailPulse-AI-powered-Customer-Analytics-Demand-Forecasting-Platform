@@ -134,7 +134,8 @@ st.markdown("""
 # Helper function to load prediction data
 @st.cache_data
 def load_churn_data():
-    pred_path = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\predictions\customer_true_churn_predictions.csv"
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    pred_path = os.path.join(base_dir, "churn_prediction_true", "predictions", "customer_true_churn_predictions.csv")
     fallback_pred_paths = [
         pred_path,
         "churn_prediction_true/predictions/customer_true_churn_predictions.csv",
@@ -152,12 +153,12 @@ def load_churn_data():
                 
     # Fallback to model inference
     model_paths = [
-        r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\models\lightgbm_model.pkl",
+        os.path.join(base_dir, "churn_prediction_true", "models", "lightgbm_model.pkl"),
         "churn_prediction_true/models/lightgbm_model.pkl",
         "../churn_prediction_true/models/lightgbm_model.pkl"
     ]
     dataset_paths = [
-        r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\datasets\true_churn_dataset.csv",
+        os.path.join(base_dir, "churn_prediction_true", "datasets", "true_churn_dataset.csv"),
         "churn_prediction_true/datasets/true_churn_dataset.csv",
         "../churn_prediction_true/datasets/true_churn_dataset.csv"
     ]

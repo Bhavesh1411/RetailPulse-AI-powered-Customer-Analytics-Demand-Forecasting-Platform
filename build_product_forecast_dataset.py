@@ -16,7 +16,7 @@ def main():
     print("=" * 60)
 
     # Paths
-    base_dir = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data"
+    base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data')
     input_file = os.path.join(base_dir, "cleaned_sales_dataset.csv")
     output_file = os.path.join(base_dir, "product_daily_forecast_features.csv")
 

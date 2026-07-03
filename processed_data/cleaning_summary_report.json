@@ -1,0 +1,21 @@
+{
+    "initial_rows": 525461,
+    "initial_cols": 13,
+    "duplicates_removed": 6865,
+    "bad_debt_removed": 3,
+    "zero_price_removed": 3681,
+    "test_bank_charges_removed": 78,
+    "final_rows": 514834,
+    "final_cols": 9,
+    "final_columns": [
+        "transaction_id",
+        "source_system",
+        "date",
+        "customer_id",
+        "product_id",
+        "quantity_sold",
+        "unit_price",
+        "sales_amount",
+        "region"
+    ]
+}

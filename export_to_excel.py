@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-input_dir = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data"
+input_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data')
 output_dir = os.path.join(input_dir, "excel_exports")
 os.makedirs(output_dir, exist_ok=True)
 

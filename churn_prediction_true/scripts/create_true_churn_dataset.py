@@ -6,8 +6,8 @@ def main():
     print("=== PHASE 1: POINT-IN-TIME DATASET CREATION ===")
     
     # Paths
-    input_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\cleaned_sales_dataset.csv'
-    output_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\datasets'
+    input_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/cleaned_sales_dataset.csv')
+    output_dir = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'churn_prediction_true/datasets')
     os.makedirs(output_dir, exist_ok=True)
     output_file = os.path.join(output_dir, 'true_churn_dataset.csv')
     

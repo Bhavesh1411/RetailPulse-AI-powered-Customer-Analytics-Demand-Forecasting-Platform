@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from statsmodels.tsa.stattools import adfuller
@@ -20,7 +21,7 @@ def calculate_metrics(y_true, y_pred):
     return mape, mae, rmse, r2
 
 def main():
-    filepath = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\Demand_Forecasting\datasets\daily_sales_forecast_features.csv"
+    filepath = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'Demand_Forecasting/datasets/daily_sales_forecast_features.csv')
     df = pd.read_csv(filepath)
     df['date'] = pd.to_datetime(df['date'])
     df = df.sort_values('date').reset_index(drop=True)
@@ -38,7 +39,7 @@ def main():
     print(weekly_raw.tail(3))
     
     # Save the weekly aggregated dataset
-    weekly_dest = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\Demand_Forecasting\datasets\weekly_sales_forecast_features.csv"
+    weekly_dest = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'Demand_Forecasting/datasets/weekly_sales_forecast_features.csv')
     
     # We will resample and create the features
     # Let's use W-SUN and clean up partial weeks if they distort results.

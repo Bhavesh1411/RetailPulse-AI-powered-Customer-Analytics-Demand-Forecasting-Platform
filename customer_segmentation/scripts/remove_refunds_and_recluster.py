@@ -7,10 +7,10 @@ from scipy.stats import skew
 import os
 
 # Paths
-input_features_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customers_features_finalone.csv'
-output_cleaned_features = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customers_features_no_refunds.csv'
-output_scaled_dataset = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\clustering_dataset_std_v2.csv'
-output_segments_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customer_segments_kmeans_v2.csv'
+input_features_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customers_features_finalone.csv')
+output_cleaned_features = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customers_features_no_refunds.csv')
+output_scaled_dataset = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/clustering_dataset_std_v2.csv')
+output_segments_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customer_segments_kmeans_v2.csv')
 
 df_original = pd.read_csv(input_features_file)
 original_count = len(df_original)

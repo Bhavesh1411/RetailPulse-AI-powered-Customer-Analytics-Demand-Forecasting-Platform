@@ -1,9 +1,10 @@
+import os
 import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
 
-unscaled_path = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customers_features_finalone.csv"
-scaled_path = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\clustering_dataset_std.csv"
+unscaled_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customers_features_finalone.csv')
+scaled_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/clustering_dataset_std.csv')
 
 df_unscaled = pd.read_csv(unscaled_path)
 df_scaled = pd.read_csv(scaled_path)

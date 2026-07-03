@@ -7,7 +7,7 @@ def main():
     print("Starting Day 2 Data Cleaning...")
     
     # 1. Load Dataset
-    input_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\sales_dataset_online_retail.csv'
+    input_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data/sales_dataset_online_retail.csv')
     print(f"Loading dataset from: {input_file}")
     df = pd.read_csv(input_file)
     
@@ -86,7 +86,7 @@ def main():
     print(f"Final shape: {final_shape}")
     
     # 7. Write Cleaned Dataset
-    output_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data'
+    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data')
     output_file = os.path.join(output_dir, 'cleaned_sales_dataset.csv')
     df.to_csv(output_file, index=False)
     print(f"Cleaned dataset saved to: {output_file}")

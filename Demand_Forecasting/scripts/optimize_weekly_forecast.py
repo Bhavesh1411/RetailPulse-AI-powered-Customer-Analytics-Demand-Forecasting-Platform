@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -22,7 +23,7 @@ def main():
     print("==================================================")
     print("PHASE 1 & 2 - LOAD AND ADD HOLIDAY FEATURES")
     print("==================================================")
-    filepath = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\Demand_Forecasting\datasets\weekly_sales_forecast_features.csv"
+    filepath = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'Demand_Forecasting/datasets/weekly_sales_forecast_features.csv')
     df = pd.read_csv(filepath)
     df['date'] = pd.to_datetime(df['date'])
     df = df.sort_values('date').reset_index(drop=True)

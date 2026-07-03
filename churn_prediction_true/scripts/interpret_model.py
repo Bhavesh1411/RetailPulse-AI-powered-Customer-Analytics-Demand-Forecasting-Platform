@@ -8,9 +8,9 @@ def main():
     print("=== PHASE 6: FEATURE IMPORTANCE & SHAP ANALYSIS ===")
     
     # Paths
-    models_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\models'
-    dataset_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\datasets\true_churn_dataset.csv'
-    reports_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\reports'
+    models_dir = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'churn_prediction_true/models')
+    dataset_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'churn_prediction_true/datasets/true_churn_dataset.csv')
+    reports_dir = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'churn_prediction_true/reports')
     os.makedirs(reports_dir, exist_ok=True)
     
     best_model_name_path = os.path.join(models_dir, 'best_model_name.txt')

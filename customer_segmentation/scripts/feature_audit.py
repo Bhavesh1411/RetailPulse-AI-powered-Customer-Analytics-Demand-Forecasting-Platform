@@ -1,8 +1,9 @@
+import os
 import pandas as pd
 import numpy as np
 
 # Load dataset
-df = pd.read_csv(r"c:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customers_features_finalone.csv")
+df = pd.read_csv(os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customers_features_finalone.csv'))
 
 # Print columns and basic info
 print("Dataset columns:")
@@ -35,5 +36,5 @@ print("\nSummary stats:")
 print(df.describe().T)
 
 # Save correlation matrix to CSV
-corr_matrix.to_csv(r"c:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\correlation_matrix.csv")
+corr_matrix.to_csv(os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/correlation_matrix.csv'))
 print("\nSaved correlation matrix to correlation_matrix.csv")

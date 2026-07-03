@@ -1,0 +1,36 @@
+{
+    "dataset_consistency": {
+        "source_data": {
+            "file": "sales_dataset_online_retail.csv",
+            "rows": 525461,
+            "date_range": "2009-12-01 to 2010-12-09"
+        },
+        "cleaned_sales_dataset": {
+            "file": "cleaned_sales_dataset.csv",
+            "rows": 514834,
+            "date_range": "2009-12-01 to 2010-12-09"
+        },
+        "cleaned_sales_dataset_enhanced": {
+            "file": "cleaned_sales_dataset_enhanced.csv",
+            "rows": 514834,
+            "date_range": "2009-12-01 to 2010-12-09"
+        },
+        "daily_sales_forecast_features": {
+            "file": "daily_sales_forecast_features.csv",
+            "rows": 374,
+            "date_range": "2009-12-01 to 2010-12-09"
+        }
+    },
+    "data_quality_removals": {
+        "total_removed": 10627,
+        "exact_duplicates": 6865,
+        "zero_or_negative_price": 3684,
+        "bad_debt_adjustments": 0,
+        "test_and_admin_transactions": 78
+    },
+    "data_quality_retained": {
+        "total_retained": 514834,
+        "returns_preserved_count": 10136,
+        "retention_percentage": "98.0%"
+    }
+}

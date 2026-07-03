@@ -6,8 +6,8 @@ def main():
     print("=== PHASE 3: LEAKAGE AUDIT ===")
     
     # Paths
-    dataset_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\datasets\true_churn_dataset.csv'
-    reports_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\churn_prediction_true\reports'
+    dataset_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'churn_prediction_true/datasets/true_churn_dataset.csv')
+    reports_dir = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'churn_prediction_true/reports')
     os.makedirs(reports_dir, exist_ok=True)
     report_file = os.path.join(reports_dir, 'leakage_audit_report.md')
     

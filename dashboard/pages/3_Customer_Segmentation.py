@@ -132,8 +132,9 @@ st.markdown("""
 # Helper function to load data
 @st.cache_data
 def load_segmentation_data():
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     paths = [
-        r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\customer_segmentation\datasets\customer_segments_kmeans_finalone.csv",
+        os.path.join(base_dir, "customer_segmentation", "datasets", "customer_segments_kmeans_finalone.csv"),
         r"customer_segmentation/datasets/customer_segments_kmeans_finalone.csv",
         r"../customer_segmentation/datasets/customer_segments_kmeans_finalone.csv"
     ]

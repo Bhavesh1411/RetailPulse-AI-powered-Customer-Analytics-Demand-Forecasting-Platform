@@ -7,7 +7,7 @@ def main():
     print("Starting Inventory Audit...")
     
     # Paths
-    base_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse'
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
     io_dir = os.path.join(base_dir, 'inventory_optimization')
     scripts_dir = os.path.join(io_dir, 'scripts')
     reports_dir = os.path.join(io_dir, 'reports')

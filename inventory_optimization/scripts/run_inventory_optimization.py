@@ -39,7 +39,7 @@ from scipy.stats import norm
 # ---------------------------------------------------------------------------
 # PATHS
 # ---------------------------------------------------------------------------
-BASE_DIR   = r"c:\Users\LENOVO\OneDrive\Desktop\RetailPulse"
+BASE_DIR   = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 IO_DIR     = os.path.join(BASE_DIR, "inventory_optimization")
 DATASETS_DIR = os.path.join(IO_DIR, "datasets")
 OUTPUTS_DIR  = os.path.join(IO_DIR, "outputs")

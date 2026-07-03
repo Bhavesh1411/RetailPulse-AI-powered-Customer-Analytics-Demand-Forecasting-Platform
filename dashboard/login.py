@@ -14,9 +14,18 @@ def render_login_page():
         password = st.text_input("Password", type="password")
         submit = st.form_submit_button("Log In", type="primary")
 
+        st.write(f"**Debug - Form Username Entered:** `{username}`")
+        st.write(f"**Debug - Form Password Entered:** `{password}`")
+        
         if submit:
-            if verify_credentials(username, password):
+            st.write("**Debug - Log In Button Clicked**")
+            st.write(f"**Debug - Authenticated Before Login call:** `{st.session_state.get('authenticated')}`")
+            res = verify_credentials(username, password)
+            st.write(f"**Debug - verify_credentials result:** `{res}`")
+            if res:
                 login_user(username)
+                st.write(f"**Debug - Authenticated After Login call:** `{st.session_state.get('authenticated')}`")
+                st.write(f"**Debug - Username in session_state:** `{st.session_state.get('username')}`")
                 st.success("Login successful! Redirecting...")
                 st.rerun()
             else:

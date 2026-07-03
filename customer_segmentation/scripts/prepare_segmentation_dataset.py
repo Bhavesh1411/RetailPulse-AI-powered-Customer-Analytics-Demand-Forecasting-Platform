@@ -5,8 +5,8 @@ from sklearn.preprocessing import StandardScaler, RobustScaler
 import os
 
 # Paths
-input_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customers_features_finalone.csv'
-output_dir = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data'
+input_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customers_features_finalone.csv')
+output_dir = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data')
 
 print("Loading data...")
 df = pd.read_csv(input_file)

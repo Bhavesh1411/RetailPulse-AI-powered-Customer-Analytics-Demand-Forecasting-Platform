@@ -63,7 +63,7 @@ def audit_dataset(df, date_col, target_col, is_panel=False, group_col=None):
     }
 
 def main():
-    base_path = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\Demand_Forecasting\datasets"
+    base_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'Demand_Forecasting/datasets')
     daily_path = os.path.join(base_path, "daily_sales_forecast_features.csv")
     product_path = os.path.join(base_path, "product_daily_forecast_features.csv")
 

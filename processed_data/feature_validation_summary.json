@@ -1,0 +1,409 @@
+{
+    "cleaned_sales_dataset_enhanced.csv": {
+        "year": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 2009.0,
+            "max": 2010.0,
+            "mean": 2009.9136440095253
+        },
+        "month": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 12.0,
+            "mean": 7.441243196836262
+        },
+        "quarter": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 4.0,
+            "mean": 2.7927254221749145
+        },
+        "week_of_year": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 52.0,
+            "mean": 30.208566256307858
+        },
+        "day_of_week": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 6.0,
+            "mean": 2.4901813011572664
+        },
+        "is_weekend": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.14220506027185462
+        },
+        "sales_per_unit": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.001,
+            "max": 25111.09,
+            "mean": 4.95920534385841
+        }
+    },
+    "customer_features.csv": {
+        "recency": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 374.0,
+            "mean": 91.36789221283398
+        },
+        "frequency": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 269.0,
+            "mean": 5.377026718428865
+        },
+        "monetary": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -25111.09,
+            "max": 341776.73,
+            "mean": 1898.7150226079016
+        },
+        "average_purchase_value": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -25111.09,
+            "max": 11880.84,
+            "mean": 288.26792467645254
+        },
+        "quantity_per_order": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -393.0,
+            "max": 87167.0,
+            "mean": 209.9634966158904
+        },
+        "active_months": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 13.0,
+            "mean": 3.1808632107787167
+        },
+        "purchase_frequency": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 20.692307692307693,
+            "mean": 1.4226159557627929
+        },
+        "customer_loyalty_score": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 10.0,
+            "mean": 5.51328613838776
+        },
+        "customer_risk_score": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0017123287671232876,
+            "max": 1.0,
+            "mean": 0.3259172711119134
+        },
+        "high_value_customer_flag": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.10002283626398721
+        },
+        "customer_tenure": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 374.0,
+            "mean": 228.57684402831697
+        },
+        "avg_days_between_purchases": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 374.0,
+            "mean": 112.63030988467129
+        },
+        "weekend_sales_ratio": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.14974895885432452
+        },
+        "customer_rank_by_revenue": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 4379.0,
+            "mean": 2189.9721397579356
+        },
+        "churn_warning_flag": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.06576844028316968
+        },
+        "lost_one_time_buyer_flag": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.1662480018269011
+        }
+    },
+    "product_features.csv": {
+        "total_product_sales": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -39243.08,
+            "max": 162885.71,
+            "mean": 2269.0079948381044
+        },
+        "total_product_quantity": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -1678.0,
+            "max": 59346.0,
+            "mean": 1313.8533552322854
+        },
+        "average_product_revenue": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -4360.3422222222225,
+            "max": 3884.0,
+            "mean": 16.54832496229479
+        },
+        "product_popularity_rank": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 4262.0,
+            "mean": 2126.5459877991552
+        },
+        "product_velocity": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -4.462765957446808,
+            "max": 157.83510638297872,
+            "mean": 3.494290838383737
+        },
+        "product_total_revenue": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -39243.08,
+            "max": 162885.71,
+            "mean": 2269.0079948381044
+        },
+        "product_rank_by_revenue": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 1.0,
+            "max": 4262.0,
+            "mean": 2131.4007508212107
+        },
+        "product_revenue_contribution": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -0.004058014684193179,
+            "max": 0.016843545486879004,
+            "mean": 0.00023463162834325816
+        },
+        "weekend_sales_ratio": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.11455416483173309
+        },
+        "slow_moving_inventory_flag": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.14429845143125294
+        },
+        "daily_demand_std": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1034.4043721933729,
+            "mean": 14.744812409917817
+        },
+        "safety_stock": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 5364.08237884706,
+            "mean": 76.46176925928535
+        },
+        "reorder_point": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.2674306432258095,
+            "max": 5842.558442676847,
+            "mean": 100.92987308627698
+        },
+        "assumed_current_stock": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1578.351063829787,
+            "mean": 34.95443403855946
+        },
+        "days_to_stockout": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 9.999999999999998,
+            "max": 999.0,
+            "mean": 18.585875175973722
+        },
+        "low_stock_flag": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.9877991553261379
+        },
+        "inventory_risk_score": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.0,
+            "mean": 0.9906008312309869
+        }
+    },
+    "daily_sales_forecast_features.csv": {
+        "sales_amount": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 104708.97,
+            "mean": 25856.984155080216
+        },
+        "quantity_sold": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -63859.0,
+            "max": 122734.0,
+            "mean": 14972.307486631016
+        },
+        "rolling_7_day_sales": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 61207.33666666667,
+            "mean": 25940.154298255668
+        },
+        "rolling_30_day_sales": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 12912.91,
+            "max": 61207.33666666667,
+            "mean": 25901.06950316933
+        },
+        "rolling_7_day_quantity": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 34608.333333333336,
+            "mean": 15039.68020753756
+        },
+        "rolling_30_day_quantity": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 6816.533333333334,
+            "max": 34608.333333333336,
+            "mean": 15092.73583835063
+        },
+        "lag_1_sales": {
+            "nulls": 1,
+            "infs": 0,
+            "min": 0.0,
+            "max": 104708.97,
+            "mean": 25785.57086863271
+        },
+        "lag_7_sales": {
+            "nulls": 7,
+            "infs": 0,
+            "min": 0.0,
+            "max": 104708.97,
+            "mean": 25609.508866485015
+        },
+        "lag_30_sales": {
+            "nulls": 30,
+            "infs": 0,
+            "min": 0.0,
+            "max": 97819.7,
+            "mean": 24119.321491279068
+        },
+        "lag_1_qty": {
+            "nulls": 1,
+            "infs": 0,
+            "min": -63859.0,
+            "max": 122734.0,
+            "mean": 14960.471849865951
+        },
+        "lag_7_qty": {
+            "nulls": 7,
+            "infs": 0,
+            "min": -63859.0,
+            "max": 122734.0,
+            "mean": 14929.326975476839
+        },
+        "lag_30_qty": {
+            "nulls": 30,
+            "infs": 0,
+            "min": -63859.0,
+            "max": 122734.0,
+            "mean": 14386.386627906977
+        },
+        "weekday_seasonality_index": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.007153317121838288,
+            "max": 1.3859506252383242,
+            "mean": 0.9999999996132573
+        },
+        "monthly_seasonality_index": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.7344215045748279,
+            "max": 1.8263050232455509,
+            "mean": 0.9999999996132573
+        },
+        "sales_volatility_30_day": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 27469.61909771991,
+            "mean": 15867.205275507737
+        },
+        "demand_momentum": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.9111876232220992,
+            "mean": 1.0086481465434989
+        },
+        "quantity_momentum": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.957827100589473,
+            "mean": 1.0044296085209519
+        }
+    }
+}

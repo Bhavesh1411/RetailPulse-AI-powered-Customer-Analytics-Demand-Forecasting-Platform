@@ -1,9 +1,10 @@
+import os
 import pandas as pd
 import numpy as np
 
 # Paths
-kmeans_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customer_segments_kmeans.csv'
-features_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customers_features_finalone.csv'
+kmeans_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customer_segments_kmeans.csv')
+features_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'processed_data/customers_features_finalone.csv')
 
 # Load
 df_kmeans = pd.read_csv(kmeans_file)

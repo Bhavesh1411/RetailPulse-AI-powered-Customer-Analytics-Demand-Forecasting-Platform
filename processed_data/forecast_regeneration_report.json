@@ -1,0 +1,218 @@
+{
+    "source_data": {
+        "file": "sales_dataset_online_retail.csv",
+        "total_rows": 525461,
+        "date_range": "2009-12-01 to 2010-12-09",
+        "years_covered": [
+            2009,
+            2010
+        ]
+    },
+    "previous_forecast_dataset": {
+        "file": "daily_sales_forecast_features.csv (before regeneration)",
+        "rows": 374,
+        "date_range": "2009-12-01 to 2010-12-09",
+        "feature_count": 18
+    },
+    "new_forecast_dataset": {
+        "file": "daily_sales_forecast_features.csv (regenerated)",
+        "rows": 374,
+        "date_range": "2009-12-01 to 2010-12-09",
+        "feature_count": 22,
+        "features": [
+            "date",
+            "sales_amount",
+            "quantity_sold",
+            "rolling_7_day_sales",
+            "rolling_30_day_sales",
+            "rolling_90_day_sales",
+            "rolling_7_day_quantity",
+            "rolling_30_day_quantity",
+            "rolling_90_day_quantity",
+            "lag_1_sales",
+            "lag_7_sales",
+            "lag_30_sales",
+            "lag_1_qty",
+            "lag_7_qty",
+            "lag_30_qty",
+            "weekday_seasonality_index",
+            "monthly_seasonality_index",
+            "seasonality_index",
+            "sales_growth_rate",
+            "sales_volatility_30_day",
+            "demand_momentum",
+            "quantity_momentum"
+        ]
+    },
+    "data_quality_cleaning": {
+        "source_rows": 525461,
+        "duplicates_removed": 6865,
+        "zero_price_removed": 3681,
+        "bad_debt_removed": 3,
+        "test_admin_removed": 78,
+        "returns_preserved": 10136,
+        "records_after_cleaning": 514834
+    },
+    "daily_aggregation": {
+        "calendar_days": 374,
+        "unique_trading_days": 307,
+        "zero_sales_days_weekend_holiday": 67
+    },
+    "decisions": {
+        "why_374_rows": "Time-series aggregation to daily level. 514,834 transactions across 374 calendar days produce 1 row per calendar day.",
+        "why_not_150k_rows": "At daily granularity, 150k rows would require 410+ years of data. The dataset covers Dec 2009 to Dec 2010 (~13 months).",
+        "why_no_2011": "No 2011 records exist in the source file. The source covers 2009-12-01 to 2010-12-09 only.",
+        "why_returns_kept": "Customer returns (C-prefix, negative quantity) reflect real demand signals and should be included in demand forecasting.",
+        "why_zero_price_removed": "Zero-price records represent accounting write-offs and reconciliation entries \u2014 not actual sales transactions.",
+        "rolling_90_day_note": "rolling_90_day features use min_periods=1 so no rows are dropped. First 89 rows reflect partial windows and should be noted when training."
+    },
+    "feature_validation": {
+        "sales_amount": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 104708.97,
+            "mean": 25856.9842
+        },
+        "quantity_sold": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -63859.0,
+            "max": 122734.0,
+            "mean": 14972.3075
+        },
+        "rolling_7_day_sales": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 61207.3367,
+            "mean": 25940.1543
+        },
+        "rolling_30_day_sales": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 12912.91,
+            "max": 61207.3367,
+            "mean": 25901.0695
+        },
+        "rolling_90_day_sales": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 18244.4683,
+            "max": 61207.3367,
+            "mean": 24795.5387
+        },
+        "rolling_7_day_quantity": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 34608.3333,
+            "mean": 15039.6802
+        },
+        "rolling_30_day_quantity": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 6816.5333,
+            "max": 34608.3333,
+            "mean": 15092.7358
+        },
+        "rolling_90_day_quantity": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 11451.3444,
+            "max": 34608.3333,
+            "mean": 14554.5631
+        },
+        "lag_1_sales": {
+            "nulls": 1,
+            "infs": 0,
+            "min": 0.0,
+            "max": 104708.97,
+            "mean": 25785.5709
+        },
+        "lag_7_sales": {
+            "nulls": 7,
+            "infs": 0,
+            "min": 0.0,
+            "max": 104708.97,
+            "mean": 25609.5089
+        },
+        "lag_30_sales": {
+            "nulls": 30,
+            "infs": 0,
+            "min": 0.0,
+            "max": 97819.7,
+            "mean": 24119.3215
+        },
+        "lag_1_qty": {
+            "nulls": 1,
+            "infs": 0,
+            "min": -63859.0,
+            "max": 122734.0,
+            "mean": 14960.4718
+        },
+        "lag_7_qty": {
+            "nulls": 7,
+            "infs": 0,
+            "min": -63859.0,
+            "max": 122734.0,
+            "mean": 14929.327
+        },
+        "lag_30_qty": {
+            "nulls": 30,
+            "infs": 0,
+            "min": -63859.0,
+            "max": 122734.0,
+            "mean": 14386.3866
+        },
+        "weekday_seasonality_index": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0072,
+            "max": 1.386,
+            "mean": 1.0
+        },
+        "monthly_seasonality_index": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.7344,
+            "max": 1.8263,
+            "mean": 1.0
+        },
+        "seasonality_index": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0053,
+            "max": 2.5312,
+            "mean": 1.0019
+        },
+        "sales_growth_rate": {
+            "nulls": 0,
+            "infs": 0,
+            "min": -0.7343,
+            "max": 0.4373,
+            "mean": 0.05
+        },
+        "sales_volatility_30_day": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 27469.6191,
+            "mean": 15867.2053
+        },
+        "demand_momentum": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.9112,
+            "mean": 1.0086
+        },
+        "quantity_momentum": {
+            "nulls": 0,
+            "infs": 0,
+            "min": 0.0,
+            "max": 1.9578,
+            "mean": 1.0044
+        }
+    }
+}

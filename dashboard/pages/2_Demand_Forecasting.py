@@ -104,7 +104,8 @@ st.markdown("""
 # Helper function to load dashboard data
 @st.cache_data
 def load_forecast_data():
-    json_path = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\Demand_Forecasting\datasets\weekly_forecast_dashboard_data.json"
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    json_path = os.path.join(base_dir, "Demand_Forecasting", "datasets", "weekly_forecast_dashboard_data.json")
     if os.path.exists(json_path):
         try:
             with open(json_path, 'r') as f:
@@ -114,7 +115,7 @@ def load_forecast_data():
     
     # Dynamic fallback training if JSON is missing
     try:
-        filepath = r"C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\Demand_Forecasting\datasets\weekly_sales_forecast_features.csv"
+        filepath = os.path.join(base_dir, "Demand_Forecasting", "datasets", "weekly_sales_forecast_features.csv")
         if not os.path.exists(filepath):
             st.error(f"Weekly features dataset not found at: {filepath}. Please generate it first.")
             st.stop()

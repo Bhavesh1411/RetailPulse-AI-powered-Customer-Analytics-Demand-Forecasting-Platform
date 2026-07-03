@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 import os
 
-input_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customer_features.csv'
-output_cleaned_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customer_features_cleaned.csv'
-output_report_file = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\customer_features_cleaning_report.csv'
+input_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data/customer_features.csv')
+output_cleaned_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data/customer_features_cleaned.csv')
+output_report_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data/customer_features_cleaning_report.csv')
 
 print(f"Loading {input_file} for cleaning...")
 df = pd.read_csv(input_file)

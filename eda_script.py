@@ -10,7 +10,7 @@ out_dir = 'eda_output'
 os.makedirs(out_dir, exist_ok=True)
 
 # Load dataset
-file_path = r'C:\Users\LENOVO\OneDrive\Desktop\RetailPulse\processed_data\sales_dataset_online_retail.csv'
+file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'processed_data/sales_dataset_online_retail.csv')
 print(f"Loading dataset from: {file_path}")
 df = pd.read_csv(file_path)
 
