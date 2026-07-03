@@ -322,7 +322,6 @@ with insight_col1:
     """, unsafe_allow_html=True)
 
 with insight_col2:
-    disclaimer = kpi_dict.get('disclaimer', "Current stock levels are simulated. Optimization outputs should be interpreted as decision-support.")
     st.markdown(f"""
     <div style='background-color:{THEME['card']}; padding:20px; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,0.05);'>
         <h4 style='color:{THEME['text']}; margin-top:0;'>Methodology & Readiness</h4>
@@ -331,8 +330,5 @@ with insight_col2:
             <li><strong>EOQ Calculation:</strong> Balanced ordering vs. holding costs based on unit cost and annual demand.</li>
             <li><strong>Risk Scoring:</strong> Matrix combining probability of stockout and ABC class impact.</li>
         </ul>
-        <div style='background-color:#FEE2E2; border-left:4px solid {THEME['danger']}; padding:10px; margin-top:15px; border-radius:4px;'>
-            <p style='color:#991B1B; margin:0; font-size:0.9rem;'><strong>Pilot Notes:</strong> {disclaimer}</p>
-        </div>
     </div>
     """, unsafe_allow_html=True)
